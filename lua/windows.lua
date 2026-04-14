@@ -186,7 +186,7 @@ local function display_list_of_buffers()
     local float_opts = {
         relative = 'editor',  -- Can also use 'win' to be relative to target_win
         width = math.floor(win_width/2),
-        height = math.floor(win_height/2),,
+        height = math.floor(win_height/2),
         row = row,
         col = col,
         style = 'minimal',
