@@ -3,7 +3,11 @@ local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
 
+local function child_win_props()
 
+    return{
+        collapsed=false
+    }
 
 
 local function create_win_props()
@@ -11,6 +15,7 @@ local function create_win_props()
     return {
         current_buffer_index = 1,
         buffers = {},
+        child_windows={}
         win_id = -1,
         style = {
             max_height = 0,
@@ -177,6 +182,7 @@ vim.api.nvim_create_autocmd("WinNew", {
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
         end
+        M.window.center_window.child_windows[new_win] = child_win_props()
         print("New window created! ID: " .. new_win)
     end
 })
