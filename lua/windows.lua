@@ -176,6 +176,7 @@ local function display_list_of_buffers()
     local win_row = win_pos[1]
     local win_col = win_pos[2]
     
+    print(vim.inspect(win_pos))
     -- Calculate center position relative to target window
     local col = win_col + math.floor(win_width / 2)
     local row = win_row + math.floor(win_height  / 2)
