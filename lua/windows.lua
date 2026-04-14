@@ -145,6 +145,7 @@ local function init_window(width)
             or current_win == M.windows.center_window.win_id
             or current_win == M.windows.right_window.win_id
             or current_win == M.windows.bottom_window.win_id then
+                print("Cant delete " .. current_win)
                 return
         end
         vim.cmd("q")
