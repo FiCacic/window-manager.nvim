@@ -170,6 +170,7 @@ local function display_list_of_buffers()
     local win_width = win_config.width
     local win_height = win_config.height
     
+    print(win_width,win_height)
     -- Get the target window's absolute position
     local win_pos = vim.api.nvim_win_get_position(M.windows.center_window.win_id)
     local win_row = win_pos[1]
