@@ -64,9 +64,12 @@ end
 local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     print(path)
+    local temp_buffer =  vim.api.nvim_create_buf(false, false)
+    vim.api.nvim_win_set_buf(window,temp_buffer)
     vim.api.nvim_buf_delete(buffer, { unload = true })
     vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. path) end)
     vim.api.nvim_win_set_buf(window,buffer)
+    vim.api.nvim_buf_delete(temp_buffer, { force = true })
 end
 
 
