@@ -3,8 +3,19 @@ local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
 
-local function child_win_props()
+local function buffer_props(id,title,win_id){
 
+
+    return {
+        id=id
+        title=title
+        window=win_id
+
+
+    }
+}
+
+local function child_win_props()
     return{
         collapsed=false
     }
@@ -137,9 +148,12 @@ local function init_window(width)
     M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
+    M.window.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
+
 
         -- Override the q keymap (not the command)
-    vim.keymap.set('n', 'q', function()
+        ---Add logic that buffers can be removed
+    vim.keymap.set('n', '<leader> q', function()
         local current_win = vim.api.nvim_get_current_win()
           if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
