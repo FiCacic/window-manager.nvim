@@ -7,7 +7,7 @@ local M = {
 
 
 
-
+print("LOADING LUA")
 function M.setup(opts)
     M.config = opts or {
 
