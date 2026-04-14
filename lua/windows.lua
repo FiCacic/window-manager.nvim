@@ -64,7 +64,7 @@ local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     vim.api.nvim_win_set_buf(window,buffer)
     vim.api.nvim_set_current_win(window)
-    vim.api.nvim_buf_set_name(buffer, filepath)
+    vim.api.nvim_buf_set_name(buffer, path)
 end
 
 
