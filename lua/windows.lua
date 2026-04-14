@@ -15,7 +15,7 @@ local function create_win_props()
     return {
         current_buffer_index = 1,
         buffers = {},
-        child_windows={}
+        child_windows={},
         win_id = -1,
         style = {
             max_height = 0,
