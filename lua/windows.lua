@@ -140,6 +140,7 @@ local function init_window(width)
 
         -- Override the q keymap (not the command)
     vim.keymap.set('n', 'q', function()
+        print(vim.inspect(M))
         local current_win = vim.api.nvim_get_current_win()
           if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
