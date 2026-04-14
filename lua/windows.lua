@@ -14,6 +14,7 @@ local function buffer_props(id,title,win_id){
 
     }
 }
+end
 
 local function child_win_props()
     return{
