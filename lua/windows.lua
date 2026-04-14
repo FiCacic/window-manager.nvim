@@ -101,10 +101,11 @@ local function create_new_buffer_on_buffer_slot(slots,index)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
     vim.api.nvim_win_set_buf(buffer_slot.win_id,new_buf)
-    vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
 
+    if(vim.api.nvim_buf_is_valid(buffer_slot.id))then
+            vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
+    end
     buffer_slot.id = new_buf
-
     return new_buf
 
 end
