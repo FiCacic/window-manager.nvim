@@ -64,7 +64,7 @@ local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     print(path)
     vim.api.nvim_win_set_buf(window,buffer)
-    vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. node_absolute_path) end)
+    vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. path) end)
 
 end
 
