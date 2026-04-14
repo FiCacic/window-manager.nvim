@@ -9,7 +9,8 @@ local function buffer_props(id,title,win_id)
     return {
         id=id,
         title=title,
-        window=win_id
+        window=win_id,
+        active = false
     }
 end
 
@@ -63,6 +64,7 @@ end
 local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     print(path)
+    vim.api.nvim_buf_delete(buffer, { unload = true })
     vim.api.nvim_win_set_buf(window,buffer)
     vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. path) end)
 
@@ -86,7 +88,7 @@ local function open_file_center_view(node_absolute_path,new_buff)
             table.insert(M.windows.center_window.buffers,buffer_props(center_buf))
             M.windows.center_window.current_buffer_index = #M.windows.center_window.buffers
     else
-        center_buf = M.windows.center_window.buffers[1].id
+        center_buf = M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id
     end
     open_file_in_window_buffer(M.windows.center_window.win_id,center_buf,node_absolute_path)
 end
