@@ -29,6 +29,9 @@ local  M = {
         right_window=create_win_props(),
         bottom_window=create_win_props()
     },
+    navigator={
+        current_parent_win = -1
+    }
 }
 
 
@@ -151,11 +154,29 @@ end
 
 local function window_listener_setup()
 
+    vim.api.nvim_create_autocmd("WinEnter", {
+    callback = function()
+        local current_win = vim.api.nvim_get_current_win()
+
+       if current_win == M.windows.left_window.win_id 
+            or current_win == M.windows.center_window.win_id
+            or current_win == M.windows.right_window.win_id
+            or current_win == M.windows.bottom_window.win_id then
+
+                print("Hello")
+        end
+    end
+})
+
 
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         local new_win = vim.api.nvim_get_current_win()
+        
+
+        vim.api.nvim_win_close(new_win,true)
+
         print("New window created! ID: " .. new_win)
     end
 })
