@@ -59,23 +59,29 @@ local function init_file_explorer(left_window_id)
 end
 
 
+local function open_file_center_view(node_absolute_path)
+    print(node_absolute_path)
 
--- Function to open references in a specific window
-local function open_references_in_window(target_winid)
-    -- Store current window
-    local current_win = vim.api.nvim_get_current_win()
-    
-    -- Focus target window
-    vim.api.nvim_set_current_win(M.right_window.win_id)
-    
-    -- Get references (will use location list for this window)
-    vim.lsp.buf.references()
-    
-    -- Optionally return to original window
-    -- vim.api.nvim_set_current_win(current_win)
 end
 
-vim.api.nvim_create_user_command("TestToggle8",open_references_in_window,{})
+
+
+-- -- Function to open references in a specific window
+-- local function open_references_in_window(target_winid)
+--     -- Store current window
+--     local current_win = vim.api.nvim_get_current_win()
+    
+--     -- Focus target window
+--     vim.api.nvim_set_current_win(M.right_window.win_id)
+    
+--     -- Get references (will use location list for this window)
+--     vim.lsp.buf.references()
+    
+--     -- Optionally return to original window
+--     -- vim.api.nvim_set_current_win(current_win)
+-- end
+
+
 
 
 local function create_toggle_callbacks(win_id,win_props,orientation)
