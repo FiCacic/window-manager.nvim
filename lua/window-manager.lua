@@ -2,6 +2,8 @@ local wm = require("windows")
 
 
 local M = {
+
+    wm=wm
 }
 
 function M.setup(opts)
