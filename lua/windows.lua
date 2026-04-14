@@ -53,8 +53,7 @@ local function open_file_in_window_buffer(window,buffer,path)
     vim.api.nvim_win_set_buf(window,buf)
     vim.api.nvim_set_current_win(window)
     vim.cmd("edit" .. path)
-
-
+end
 local function init_file_explorer(left_window_id)
     vim.api.nvim_set_current_win(left_window_id)
     local tree = require("nvim-tree.api")
