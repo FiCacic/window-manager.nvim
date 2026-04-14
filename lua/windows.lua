@@ -166,5 +166,6 @@ end
 
 M.init_window= init_window
 M.init_file_explorer = init_file_explorer
+M.window_listener_setup = window_listener_setup
 
 return M
