@@ -98,6 +98,7 @@ end
 
 
 local function create_new_buffer_on_buffer_slot(slots,index)
+    print(index)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
     vim.api.nvim_win_set_buf(buffer_slot.win_id,new_buf)
