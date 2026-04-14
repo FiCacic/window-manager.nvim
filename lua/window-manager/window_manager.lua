@@ -1,4 +1,4 @@
-local wm = require("window-manager")
+local wm = require("windows")
 
 
 local M = {
