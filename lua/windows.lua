@@ -62,11 +62,12 @@ end
 
 local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
-    vim.api.nvim_win_set_buf(window,buffer)
-    vim.api.nvim_set_current_win(window)
     print(path)
     vim.api.nvim_buf_set_name(buffer, path)
     vim.fn.bufload(buffer)
+    vim.api.nvim_win_set_buf(window,buffer)
+    vim.api.nvim_set_current_win(window)
+
 end
 
 
