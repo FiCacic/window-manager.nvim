@@ -115,36 +115,36 @@ local function init_window(width)
         width = right_width
     })
 
-    M.left_window.win_id = left_window
-    M.right_window.win_id = right_win
-    M.center_window.win_id = center_win
-    M.bottom_window.win_id = bottom_win
+    M.windows.left_window.win_id = left_window
+    M.windows.right_window.win_id = right_win
+    M.windows.center_window.win_id = center_win
+    M.windows.bottom_window.win_id = bottom_win
 
-    M.bottom_window.style.max_height = bottom_height
-    M.bottom_window.style.height = bottom_height
+    M.windows.bottom_window.style.max_height = bottom_height
+    M.windows.bottom_window.style.height = bottom_height
 
-    M.right_window.style.max_width = right_width
-    M.right_window.style.width = right_width
+    M.windows.right_window.style.max_width = right_width
+    M.windows.right_window.style.width = right_width
 
-    M.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
-    M.left_window.style.width = vim.api.nvim_win_get_width(left_window)
+    M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
+    M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
-    vim.api.nvim_create_user_command("TestToggle",create_toggle_callbacks(bottom_win,M.bottom_window.style,HEIGHT_ORIENTATION),{})
-    vim.api.nvim_create_user_command("TestToggle1",create_toggle_callbacks(right_win,M.right_window.style,WIDTH_ORIENTATION),{})
-     vim.api.nvim_create_user_command("TestToggle2",create_toggle_callbacks(left_window,M.left_window.style,WIDTH_ORIENTATION),{})
+    -- vim.api.nvim_create_user_command("TestToggle",create_toggle_callbacks(bottom_win,M.bottom_window.style,HEIGHT_ORIENTATION),{})
+    -- vim.api.nvim_create_user_command("TestToggle1",create_toggle_callbacks(right_win,M.right_window.style,WIDTH_ORIENTATION),{})
+    --  vim.api.nvim_create_user_command("TestToggle2",create_toggle_callbacks(left_window,M.left_window.style,WIDTH_ORIENTATION),{})
 
 
 
-      vim.api.nvim_create_user_command("TestToggle4",function() 
-        local must = require("nvim-tree.api")
-        print(vim.inspect(must.node.open.replace_tree_buffer))
+    --   vim.api.nvim_create_user_command("TestToggle4",function() 
+    --     local must = require("nvim-tree.api")
+    --     print(vim.inspect(must.node.open.replace_tree_buffer))
 
-        must.tree.open({
-            current_window=true
-        })
+    --     must.tree.open({
+    --         current_window=true
+    --     })
 
-      end
-        ,{})
+    --   end
+    --     ,{})
 
 end
 
