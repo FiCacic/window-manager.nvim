@@ -8,7 +8,7 @@ local function child_win_props()
     return{
         collapsed=false
     }
-
+end
 
 local function create_win_props()
 
