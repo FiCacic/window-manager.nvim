@@ -180,11 +180,13 @@ local function display_list_of_buffers()
     -- Calculate center position relative to target window
     local col = win_col + math.floor(win_width / 2)
     local row = win_row + math.floor(win_height  / 2)
-    print(win_col,win_row)
+    print(col,row)
     -- Create buffer for float window
     local buf = vim.api.nvim_create_buf(false, true)
     
     -- Float window configuration
+
+    print("")
     local float_opts = {
         relative = 'editor',  -- Can also use 'win' to be relative to target_win
         width = math.floor(win_width/2),
