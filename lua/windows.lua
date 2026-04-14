@@ -4,6 +4,8 @@ local WIDTH_ORIENTATION = 0
 
 
 
+
+
 local function create_win_props()
 
     return {
@@ -18,6 +20,17 @@ local function create_win_props()
         }
     }
 end
+
+
+local  M = {
+    windows={
+        left_window = create_win_props(),
+        center_window = create_win_props(),
+        right_window=create_win_props(),
+        bottom_window=create_win_props()
+    },
+}
+
 
 
 local function init_file_explorer(left_window_id)
@@ -137,14 +150,7 @@ end
 
 
 
-local  M = {
-    windows={
-        left_window = create_win_props(),
-        center_window = create_win_props(),
-        right_window=create_win_props(),
-        bottom_window=create_win_props()
-    },
-    init_window = init_window,
-    init_file_explorer = init_file_explorer
-}
+M["init_window"] = init_window
+M["init_explorer"] = init_file_explorer
+
 return M
