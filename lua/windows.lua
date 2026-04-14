@@ -202,13 +202,17 @@ local function init_window(width)
 
                 if current_win == M.windows.center_window.win_id then
                     local buf_id = vim.api.nvim_win_get_buf(current_win)
-                    print(buf_id ..  " ... " .. M.windows.center_window.buffers[1].id )
                     if(buf_id ~= M.windows.center_window.buffers[1].id) then
                         print("Removing")
                         vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[1].id)
                         vim.api.nvim_buf_delete(buf_id,{force = true})
                         remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
-                        M.windows.center_window.current_buffer_index = 1
+                    else
+                        vim.api.nvim_buf_delete(buf_id,{force = true})
+                        remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
+                        local center_buf = vim.api.nvim_create_buf(false, false)
+                        M.windows.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
+
                     end
                 end
 
