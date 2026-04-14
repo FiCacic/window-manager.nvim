@@ -4,14 +4,14 @@ local wm = require("windows")
 local M = {
 }
 
-print("What what")
+
 function M.setup(opts)
     M.config = opts or {
 
         style={
             width=0.5
         },
-        layouy = {
+        layout = {
             file_explorer = "left"
         }
     }
