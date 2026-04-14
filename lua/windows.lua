@@ -148,6 +148,14 @@ local function next_buffer_center_view()
         M.windows.center_window.current_buffer_index = 1
     else
         M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
+
+        while M.windows.center_window.buffers[M.windows.center_window.current_buffer_index ].id == -1 then
+                if #M.windows.center_window.buffers == M.windows.center_window.current_buffer_index then
+                    M.windows.center_window.current_buffer_index = 1
+                else
+                    M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
+                end
+        end
     end
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id)
 end
