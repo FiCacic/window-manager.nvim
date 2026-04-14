@@ -7,9 +7,9 @@ local function buffer_props(id,title,win_id){
 
 
     return {
-        id=id
-        title=title
-        window=win_id
+        id=id,
+        title=title,
+        window=win_id,
 
 
     }
