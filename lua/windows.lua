@@ -150,6 +150,7 @@ local function next_buffer_center_view()
         M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
 
         while M.windows.center_window.buffers[M.windows.center_window.current_buffer_index ].id == -1 do
+            print("Checking " .. M.windows.center_window.current_buffer_index)
                 if #M.windows.center_window.buffers == M.windows.center_window.current_buffer_index then
                     M.windows.center_window.current_buffer_index = 1
                 else
