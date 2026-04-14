@@ -128,15 +128,17 @@ end
 
 
 local function open_file_center_view(node_absolute_path,new_buff)
-    local center_buf = -1
     if new_buff then
-            center_buf = vim.api.nvim_create_buf(false, false)
-            table.insert(M.windows.center_window.buffers,buffer_props(center_buf))
-            M.windows.center_window.current_buffer_index = #M.windows.center_window.buffers
-    else
-        local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index)
-        open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
+            if(#M.windows.center_window.buffers == M.windows.center_window.current_buffer_index )then
+                M.windows.center_window.current_buffer_index = 1
+
+            else
+                M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
+            end
     end
+     local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index)
+    open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
+
 end
 
 local function next_buffer_center_view()
