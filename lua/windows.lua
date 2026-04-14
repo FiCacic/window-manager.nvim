@@ -226,5 +226,6 @@ end
 M.init_window= init_window
 M.init_file_explorer = init_file_explorer
 M.window_listener_setup = window_listener_setup
+M.open_file_center_buffer=open_file_center_view
 
 return M
