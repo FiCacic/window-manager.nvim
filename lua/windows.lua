@@ -3,6 +3,13 @@ local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
 
+local function HELP_FUNCTION()
+
+
+
+end
+
+
 local function buffer_props(id,title,win_id)
 
 
@@ -68,6 +75,14 @@ local  M = {
         current_parent_win = -1
     }
 }
+
+
+local function HELP_FUNCTION()
+
+    print(vim.inspect(M))
+
+end
+    vim.api.nvim_create_user_command("HELP_PRINT",HELP_FUNCTION,{})
 
 
 local function remove_buffer_from_center(list, target_id)
