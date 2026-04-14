@@ -181,7 +181,7 @@ local function init_window(width)
 
         -- Override the q keymap (not the command)
         ---Add logic that buffers can be removed
-    vim.keymap.set('n', '<leader>q', function()
+    vim.keymap.set('n', 'f', function()
         print("Deleting ")
         local current_win = vim.api.nvim_get_current_win()
           if current_win == M.windows.left_window.win_id 
