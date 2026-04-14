@@ -49,6 +49,11 @@ local  M = {
 }
 
 
+local function open_file_in_window_buffer(window,buffer,path)
+    vim.api.nvim_win_set_buf(window,buf)
+    vim.api.nvim_set_current_win(window)
+    vim.cmd("edit" .. path)
+
 
 local function init_file_explorer(left_window_id)
     vim.api.nvim_set_current_win(left_window_id)
@@ -60,7 +65,11 @@ end
 
 
 local function open_file_center_view(node_absolute_path)
-    print(node_absolute_path)
+    if(#M.windows.center_window.buffers == 1)then
+            open_file_in_window_buffer(M.windows.center_window.win_id,
+        M.windows.center_window.buffers[1].id,
+    node_absolute_path)
+    end
 
 end
 

@@ -2,7 +2,6 @@ local wm = require("windows")
 
 
 local M = {
-
     wm=wm
 }
 
@@ -21,8 +20,6 @@ function M.setup(opts)
     if M.config.layout.file_explorer == "left" then
         wm.init_file_explorer(wm.windows.left_window.win_id)
     end
-
-
 end
 
 
