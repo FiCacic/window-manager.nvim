@@ -3,7 +3,7 @@ local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
 
-print("Hello")
+
 local function create_win_props()
 
     return {
@@ -147,6 +147,4 @@ local  M = {
     init_window = init_window,
     init_file_explorer = init_file_explorer
 }
-
-print("HELLO")
 return M
