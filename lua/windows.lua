@@ -187,7 +187,7 @@ local function display_list_of_buffers()
         width = 30,
         height = 30,
         row = row,
-        col = col,
+        col = col-30,
         style = 'minimal',
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
     }
