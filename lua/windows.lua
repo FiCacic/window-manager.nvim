@@ -143,6 +143,8 @@ local function open_file_center_view(node_absolute_path,new_buff)
     vim.api.nvim_set_current_win(M.windows.center_window.win_id)
 end
 
+
+
 local function next_buffer_center_view()
     if #M.windows.center_window.buffers == M.windows.center_window.current_buffer_index then
         M.windows.center_window.current_buffer_index = 1
@@ -150,7 +152,6 @@ local function next_buffer_center_view()
         M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
 
         while M.windows.center_window.buffers[M.windows.center_window.current_buffer_index ].id == -1 do
-            print("Checking " .. M.windows.center_window.current_buffer_index)
                 if #M.windows.center_window.buffers == M.windows.center_window.current_buffer_index then
                     M.windows.center_window.current_buffer_index = 1
                 else
@@ -160,6 +161,45 @@ local function next_buffer_center_view()
     end
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id)
 end
+
+
+local function display_list_of_buffers()
+
+   -- Get the target window's position and size
+    local win_config = vim.api.nvim_win_get_config(target_win)
+    local win_width = win_config.width or vim.o.columns
+    local win_height = win_config.height or vim.o.lines
+    
+    -- Get the target window's absolute position
+    local win_pos = vim.api.nvim_win_get_position(target_win)
+    local win_row = win_pos[1]
+    local win_col = win_pos[2]
+    
+    -- Calculate center position relative to target window
+    local col = win_col + math.floor((win_width - width) / 2)
+    local row = win_row + math.floor((win_height - height) / 2)
+    
+    -- Create buffer for float window
+    local buf = vim.api.nvim_create_buf(false, true)
+    
+    -- Float window configuration
+    local float_opts = {
+        relative = 'editor',  -- Can also use 'win' to be relative to target_win
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        style = 'minimal',
+        border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
+    }
+    
+    -- Create the floating window
+    local float_win = vim.api.nvim_open_win(buf, true, float_opts)
+    
+    return float_win, buf
+end
+
+    vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
 
 
 
