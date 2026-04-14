@@ -167,8 +167,8 @@ local function display_list_of_buffers()
 
    -- Get the target window's position and size
     local win_config = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
-    local win_width = win_config.width or vim.o.columns
-    local win_height = win_config.height or vim.o.lines
+    local win_width = win_config.width
+    local win_height = win_config.height
     
     -- Get the target window's absolute position
     local win_pos = vim.api.nvim_win_get_position(M.windows.center_window.win_id)
@@ -185,8 +185,8 @@ local function display_list_of_buffers()
     -- Float window configuration
     local float_opts = {
         relative = 'editor',  -- Can also use 'win' to be relative to target_win
-        width = math.floor(win_width/2),
-        height = math.floor(win_height/2),
+        width = math.floor(win_width/3),
+        height = math.floor(win_height/3),
         row = row,
         col = col,
         style = 'minimal',
