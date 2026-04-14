@@ -29,19 +29,19 @@ local function create_win_props()
             {
                 id=-1,
                 title="No title",
-                window=-1,
+                win_id=-1,
                 active = false
             },
             {
                 id=-1,
                 title="No title",
-                window=-1,
+                win_id=-1,
                 active = false
             },
             {
                 id=-1,
                 title="No title",
-                window=-1,
+                win_id=-1,
                 active = false
             },
         },
@@ -83,12 +83,13 @@ end
 
 
 local function create_new_buffer_on_buffer_slot(slots,index)
-    local buffers = M.windows.center_window.buffers
-    local buffer_slot = buffers[index]
+    local buffer_slot = slots[index]
+    local new_buf = vim.api.nvim_create_buf(false,false)
+    vim.api.nvim_win_set_buf(buffer_slot.win_id,new_buf)
     vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
 
-    local new_buf = vim.api.nvim_create_buf(false,false)
     buffer_slot.id = new_buf
+
     return new_buf
 
 end
