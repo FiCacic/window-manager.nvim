@@ -146,7 +146,7 @@ local function init_window(width)
     M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
-    M.window.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
+    M.windows.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
 
 
         -- Override the q keymap (not the command)
