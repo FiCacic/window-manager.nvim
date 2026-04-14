@@ -150,7 +150,7 @@ end
 
 
 
-M["init_window"] = init_window
-M["init_explorer"] = init_file_explorer
+M.init_window= init_window
+M.init_file_explorer = init_file_explorer
 
 return M
