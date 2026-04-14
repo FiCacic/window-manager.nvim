@@ -4,7 +4,6 @@ local wm = require("windows")
 local M = {
 }
 
-
 function M.setup(opts)
     M.config = opts or {
 

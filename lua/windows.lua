@@ -149,6 +149,20 @@ local function init_window(width)
 end
 
 
+local function window_listener_setup()
+
+
+-- Listen for new windows
+vim.api.nvim_create_autocmd("WinNew", {
+    callback = function()
+        local new_win = vim.api.nvim_get_current_win()
+        print("New window created! ID: " .. new_win)
+    end
+})
+
+
+end
+
 
 M.init_window= init_window
 M.init_file_explorer = init_file_explorer
