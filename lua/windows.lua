@@ -49,6 +49,16 @@ local  M = {
 }
 
 
+local function remove_buffer_from_center(list, target_id)
+    for i, item in ipairs(list) do
+        if item.id == target_id then
+            table.remove(list, i)
+            return true  -- Item found and removed
+        end
+    end
+    return false  -- Item not found
+end
+
 local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     vim.api.nvim_win_set_buf(window,buffer)
@@ -195,6 +205,7 @@ local function init_window(width)
                     if(buf_id ~= M.windows.center_window.buffers[1].id) then
                         vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[1].id)
                         vim.api.nvim_buf_delete(buf_id,{force = true})
+                        remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
                     end
                 end
 
