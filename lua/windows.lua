@@ -3,17 +3,14 @@ local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
 
-local function buffer_props(id,title,win_id){
+local function buffer_props(id,title,win_id)
 
 
     return {
         id=id,
         title=title,
-        window=win_id,
-
-
+        window=win_id
     }
-}
 end
 
 local function child_win_props()
