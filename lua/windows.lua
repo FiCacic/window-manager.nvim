@@ -166,12 +166,12 @@ end
 local function display_list_of_buffers()
 
    -- Get the target window's position and size
-    local win_config = vim.api.nvim_win_get_config(target_win)
+    local win_config = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local win_width = win_config.width or vim.o.columns
     local win_height = win_config.height or vim.o.lines
     
     -- Get the target window's absolute position
-    local win_pos = vim.api.nvim_win_get_position(target_win)
+    local win_pos = vim.api.nvim_win_get_position(M.windows.center_window.win_id)
     local win_row = win_pos[1]
     local win_col = win_pos[2]
     
