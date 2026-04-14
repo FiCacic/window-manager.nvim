@@ -184,7 +184,7 @@ local function display_list_of_buffers()
     local buf = vim.api.nvim_create_buf(false, true)
     -- Float window configuration
     local float_opts = {
-        relative = 'editor',  -- Can also use 'win' to be relative to target_win
+        relative = 'win',  -- Can also use 'win' to be relative to target_win
         width = 10,
         height = 10,
         row = 10,
