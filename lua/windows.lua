@@ -64,7 +64,7 @@ local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     vim.api.nvim_win_set_buf(window,buffer)
     vim.api.nvim_set_current_win(window)
-    vim.cmd("edit" .. path)
+    vim.api.nvim_buf_set_name(buffer, filepath)
 end
 
 
@@ -203,7 +203,6 @@ local function init_window(width)
                 if current_win == M.windows.center_window.win_id then
                     local buf_id = vim.api.nvim_win_get_buf(current_win)
                     if(buf_id ~= M.windows.center_window.buffers[1].id) then
-                        print("Removing")
                         vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[1].id)
                         vim.api.nvim_buf_delete(buf_id,{force = true})
                         remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
