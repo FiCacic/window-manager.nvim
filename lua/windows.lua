@@ -179,16 +179,15 @@ local function display_list_of_buffers()
     local col = win_col + math.floor(win_width / 2)
     local row = win_row + math.floor(win_height  / 2)
 
-    print(col,row)
     -- Create buffer for float window
     local buf = vim.api.nvim_create_buf(false, true)
     -- Float window configuration
     local float_opts = {
-        relative = 'win',  -- Can also use 'win' to be relative to target_win
-        width = 10,
-        height = 10,
-        row = 10,
-        col = 10,
+        relative = 'editor',  -- Can also use 'win' to be relative to target_win
+        width = 30,
+        height = 30,
+        row = row,
+        col = col,
         style = 'minimal',
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
     }
