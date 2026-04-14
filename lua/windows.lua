@@ -24,7 +24,27 @@ local function create_win_props()
 
     return {
         current_buffer_index = 1,
-        buffers = {},
+        buffers = {
+            
+            {
+                id=-1,
+                title="No title",
+                window=-1,
+                active = false
+            },
+            {
+                id=-1,
+                title="No title",
+                window=-1,
+                active = false
+            },
+            {
+                id=-1,
+                title="No title",
+                window=-1,
+                active = false
+            },
+        },
         child_windows={},
         win_id = -1,
         style = {
@@ -61,15 +81,23 @@ local function remove_buffer_from_center(list, target_id)
     return false  -- Item not found
 end
 
+
+local function create_new_buffer_on_buffer_slot(slots,index)
+    local buffers = M.windows.center_window.buffers
+    local buffer_slot = buffers[index]
+    vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
+
+    local new_buf = vim.api.nvim_create_buf(false,false)
+    buffer_slot.id = new_buf
+    return new_buf
+
+end
+
 local function open_file_in_window_buffer(window,buffer,path)
     print(".. " .. window .. "  " .. buffer)
     print(path)
-    local temp_buffer =  vim.api.nvim_create_buf(false, false)
     vim.api.nvim_win_set_buf(window,temp_buffer)
-    vim.api.nvim_buf_delete(buffer, { unload = true })
     vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. path) end)
-    vim.api.nvim_win_set_buf(window,buffer)
-    vim.api.nvim_buf_delete(temp_buffer, { force = true })
 end
 
 
@@ -90,9 +118,9 @@ local function open_file_center_view(node_absolute_path,new_buff)
             table.insert(M.windows.center_window.buffers,buffer_props(center_buf))
             M.windows.center_window.current_buffer_index = #M.windows.center_window.buffers
     else
-        center_buf = M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id
+        local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index)
+        open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
     end
-    open_file_in_window_buffer(M.windows.center_window.win_id,center_buf,node_absolute_path)
 end
 
 local function next_buffer_center_view()
@@ -192,7 +220,10 @@ local function init_window(width)
     M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
-    M.windows.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
+    M.windows.center_window.buffers[1].id = center_buf
+    M.windows.center_window.buffers[1].title = "main"
+    M.windows.center_window.buffers[1].win_id = center_win
+    M.windows.center_window.current_buffer_index = 1
 
 
         -- Override the q keymap (not the command)
