@@ -5,9 +5,6 @@ local M = {
 }
 
 
-
-
-print("LOADING LUA")
 function M.setup(opts)
     M.config = opts or {
 
@@ -18,9 +15,9 @@ function M.setup(opts)
             file_explorer = "left"
         }
     }
-    wm.init_window(opts.style.width)
+    wm.init_window(M.config.style.width)
 
-    if opts.layout.file_explorer == "left" then
+    if M.config.layout.file_explorer == "left" then
         wm.init_file_explorer(wm.windows.left_window.win_id)
     end
 
