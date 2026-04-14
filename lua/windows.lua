@@ -137,6 +137,20 @@ local function init_window(width)
     M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
+
+        -- Override the q keymap (not the command)
+    vim.keymap.set('n', 'q', function()
+        local current_win = vim.api.nvim_get_current_win()
+          if current_win == M.windows.left_window.win_id 
+            or current_win == M.windows.center_window.win_id
+            or current_win == M.windows.right_window.win_id
+            or current_win == M.windows.bottom_window.win_id then
+                return
+        end
+        vim.cmd("q")
+    end)
+
+
     -- vim.api.nvim_create_user_command("TestToggle",create_toggle_callbacks(bottom_win,M.bottom_window.style,HEIGHT_ORIENTATION),{})
     -- vim.api.nvim_create_user_command("TestToggle1",create_toggle_callbacks(right_win,M.right_window.style,WIDTH_ORIENTATION),{})
     --  vim.api.nvim_create_user_command("TestToggle2",create_toggle_callbacks(left_window,M.left_window.style,WIDTH_ORIENTATION),{})
@@ -187,17 +201,7 @@ vim.api.nvim_create_autocmd("WinNew", {
         print("New window created! ID: " .. new_win)
     end
 })
-
-
 end
-
-
--- Override the q keymap (not the command)
-vim.keymap.set('n', 'q', function()
-    local win = vim.api.nvim_get_current_win()
-    print("CLOSING !")
-    vim.cmd("q")
-end)
 
 
 M.init_window= init_window
