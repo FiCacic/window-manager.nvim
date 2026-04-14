@@ -82,7 +82,7 @@ local function HELP_FUNCTION()
     print(vim.inspect(M))
 
 end
-    vim.api.nvim_create_user_command("HELP_PRINT",HELP_FUNCTION,{})
+    vim.api.nvim_create_user_command("HelpPrint",HELP_FUNCTION,{})
 
 
 local function remove_buffer_from_center(list, target_id)
