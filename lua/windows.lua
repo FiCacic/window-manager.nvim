@@ -50,6 +50,7 @@ local  M = {
 
 
 local function open_file_in_window_buffer(window,buffer,path)
+    print(".. " .. window .. "  " .. buffer)
     vim.api.nvim_win_set_buf(window,buf)
     vim.api.nvim_set_current_win(window)
     vim.cmd("edit" .. path)
