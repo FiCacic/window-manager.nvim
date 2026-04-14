@@ -157,6 +157,7 @@ local function window_listener_setup()
     vim.api.nvim_create_autocmd("WinEnter", {
     callback = function()
         local current_win = vim.api.nvim_get_current_win()
+        print("HEDS" .. current_win)
 
        if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
