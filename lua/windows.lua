@@ -182,7 +182,7 @@ vim.api.nvim_create_autocmd("WinNew", {
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
         end
-        M.window.center_window.child_windows[new_win] = child_win_props()
+        M.windows.center_window.child_windows[new_win] = child_win_props()
         print("New window created! ID: " .. new_win)
     end
 })
