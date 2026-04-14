@@ -181,13 +181,22 @@ local function init_window(width)
 
         -- Override the q keymap (not the command)
         ---Add logic that buffers can be removed
-    vim.keymap.set('n', '<leader>f', function()
-        print("Deleting ")
+    vim.keymap.set('n', '<leader>r', function()
         local current_win = vim.api.nvim_get_current_win()
           if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
             or current_win == M.windows.right_window.win_id
             or current_win == M.windows.bottom_window.win_id then
+
+
+                if current_win == M.windows.center_window.win_id then
+                    local buf_id = vim.api.nvim_win_get_buf(current_win)
+                    if(buf_id ~= M.windows.center_window.buffers[1].id) then
+                        vim.api.nvim_buf_delete(buf_id,{force = true})
+                        vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[1].id)
+                    end
+                end
+
                 print("Cant delete " .. current_win)
                 return
         end
