@@ -190,13 +190,15 @@ vim.api.nvim_create_autocmd("WinNew", {
 
 
 end
--- Override :q command to ask for confirmation
-vim.api.nvim_create_user_command('Q', function()
-    local choice = vim.fn.confirm("Close this window?", "&Yes\n&No", 1)
-    if choice == 1 then
-        vim.cmd('q')
-    end
-end, {})
+
+
+-- Override the q keymap (not the command)
+vim.keymap.set('n', 'q', function()
+    local win = vim.api.nvim_get_current_win()
+    print("CLOSING !")
+    vim.cmd("q")
+end)
+
 
 M.init_window= init_window
 M.init_file_explorer = init_file_explorer
