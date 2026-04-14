@@ -55,6 +55,8 @@ local function open_file_in_window_buffer(window,buffer,path)
     vim.api.nvim_set_current_win(window)
     vim.cmd("edit" .. path)
 end
+
+
 local function init_file_explorer(left_window_id)
     vim.api.nvim_set_current_win(left_window_id)
     local tree = require("nvim-tree.api")
@@ -64,13 +66,26 @@ local function init_file_explorer(left_window_id)
 end
 
 
-local function open_file_center_view(node_absolute_path)
-    if(#M.windows.center_window.buffers == 1)then
-            open_file_in_window_buffer(M.windows.center_window.win_id,
-        M.windows.center_window.buffers[1].id,
-    node_absolute_path)
-    end
 
+local function open_file_center_view(node_absolute_path,new_buff)
+    local center_buf = -1
+    if new_buff then
+            center_buf = vim.api.nvim_create_buf(false, false)
+            table.insert(M.windows.center_window.buffers,buffer_props(center_buf))
+            M.windows.center_window.current_buffer_index = #M.windows.center_window.buffers
+    else
+        center_buf = M.windows.center_window.buffers[1].id
+    end
+    open_file_in_window_buffer(M.windows.center_window.win_id,center_buf,node_absolute_path)
+end
+
+local function next_buffer_center_view()
+    if #M.windows.center_window.buffers == M.windows.center_window.current_buffer_index then
+        M.windows.center_window.current_buffer_index = 1
+    else
+        M.windows.center_window.current_buffer_index = M.windows.center_window.current_buffer_index + 1
+    end
+    vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id)
 end
 
 
@@ -181,7 +196,7 @@ local function init_window(width)
 
     -- vim.api.nvim_create_user_command("TestToggle",create_toggle_callbacks(bottom_win,M.bottom_window.style,HEIGHT_ORIENTATION),{})
     -- vim.api.nvim_create_user_command("TestToggle1",create_toggle_callbacks(right_win,M.right_window.style,WIDTH_ORIENTATION),{})
-    --  vim.api.nvim_create_user_command("TestToggle2",create_toggle_callbacks(left_window,M.left_window.style,WIDTH_ORIENTATION),{})
+    vim.api.nvim_create_user_command("TestToggle2",next_buffer_center_view,{})
 
 
 
