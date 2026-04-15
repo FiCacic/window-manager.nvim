@@ -165,6 +165,7 @@ end
 
 local function display_list_of_buffers()
 
+    vim.api.nvim_set_current_win(M.windows.center_window.win_id)
    -- Get the target window's position and size
     local win_config = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local win_width = win_config.width
@@ -335,8 +336,6 @@ local function init_window(width)
 
                     end
                 end
-
-                print("Cant delete " .. current_win)
                 return
         end
         vim.cmd("q")
@@ -384,7 +383,7 @@ local function window_listener_setup()
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         local new_win = vim.api.nvim_get_current_win()
-        
+       
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
             return
