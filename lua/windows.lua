@@ -465,20 +465,16 @@ vim.api.nvim_create_autocmd("WinClosed", {
         local close_win = vim.api.nvim_get_current_win()
 
         if close_win == M.windows.center_window.win_id then
-            
             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
-
-            local center_width = math.floor(vim.o.columns * 0.85)
 
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
                 split = "right",  -- Opens to the right
                 vertical = true,   -- Vertical split
-                width = center_width
             })
             
             M.windows.center_window.win_id = center_win
-            vim.api.nvim_set_current_win(center_win)
-               M.navigator.current_parent_win = center_win
+            counter_resizing_of_windows(false)
+            M.navigator.current_parent_win = center_win
         end
         
     end
