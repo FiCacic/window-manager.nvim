@@ -132,6 +132,7 @@ local function open_file_center_view(node_absolute_path,new_buff,filename)
      local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index,node_absolute_path,filename,BUF_TYPE_FILE)
     open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
     vim.api.nvim_set_current_win(M.windows.center_window.win_id)
+    display_file_index_buffer_in_center_view_virtual_text()
 end
 
 
