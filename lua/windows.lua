@@ -146,7 +146,7 @@ local function next_buffer_center_view()
 end
 
 
-local function display_list_of_buffers()
+local function display_list_of_buffers_center()
 
     vim.api.nvim_set_current_win(M.windows.center_window.win_id)
    -- Get the target window's position and size
@@ -169,18 +169,23 @@ local function display_list_of_buffers()
     }
     
     -- Create the floating window
-    local float_win = vim.api.nvim_open_win(buf, true, float_opts)
+    vim.api.nvim_open_win(buf, true, float_opts)
     
     -- Clear buffer if it already has content
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
     -- Build lines
 local lines = {}
-for index, item in ipairs(M.windows.center_window.buffers) do
-    table.insert(lines, string.format("%d: %s", index, item.title))
+for index, buffer in ipairs(M.windows.center_window.buffers) do
+    table.insert(lines, string.format("%d: %s", index, buffer.title))
     -- Create buffer-local keymap (buffer 0 = current buffer)
     vim.api.nvim_buf_set_keymap(buf, 'n', tostring(index), '', {
-        callback = function() print(item.title) end,
+        callback = function() 
+            if buffer.id ~= -1 then
+                vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
+            end
+            
+        end,
         noremap = true,
         silent = true,
     })
@@ -195,7 +200,7 @@ vim.api.nvim_buf_set_option(buf, 'modifiable', false)
 
 end
 
-vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
+vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers_center,{})
 
 
 
