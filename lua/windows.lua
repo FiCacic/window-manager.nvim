@@ -131,6 +131,35 @@ local function next_buffer_center_view()
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id)
 end
 
+----------------------------------------------------------------------------------------------------------------
+local function on_remove_on_center_window()
+    local index = M.windows.center_window.current_buffer_index
+    local buffer_slot = M.windows.center_window.buffers[index]
+    local temp_buf = vim.api.nvim_create_buf(false,false)
+    local buf_to_delete = buffer_slot.id
+    vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
+    vim.api.nvim_buf_delete(buf_to_delete,{force = true})
+    M.windows.center_window.buffers[index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
+
+    local find = true
+    local cycle_repeat = index
+    while find do
+        index = index + 1
+        if index > #M.windows.center_window.buffers then
+            index = 1
+        end
+        if M.windows.center_window.buffers[index].buf_type == BUF_TYPE_NO_FILE then
+            if cycle_repeat == index then
+                find = false
+            end
+        else
+                vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[index].id)
+                M.windows.center_window.current_buffer_index = index
+                find = false
+        end
+    end
+end
+----------------------------------------------------------------------------------------------------------------
 
 local function display_list_of_buffers_center()
 
@@ -157,27 +186,35 @@ local function display_list_of_buffers_center()
     -- Create the floating window
     vim.api.nvim_open_win(buf, true, float_opts)
     
-    -- Clear buffer if it already has content
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
-    -- Build lines
-local lines = {}
-for index, buffer in ipairs(M.windows.center_window.buffers) do
-    table.insert(lines, string.format("%d: %s", index, buffer.title))
-    -- Create buffer-local keymap (buffer 0 = current buffer)
-    vim.api.nvim_buf_set_keymap(buf, 'n', tostring(index), '', {
-        callback = function() 
-            if buffer.id ~= -1 then
-                vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
-                M.windows.center_window.current_buffer_index = index
-            end
-            
-        end,
-        noremap = true,
-        silent = true,
-    })
-end
+    local lines = {}
+    for index, buffer in ipairs(M.windows.center_window.buffers) do
 
+        table.insert(lines, string.format("%d: %s", index, buffer.title))
+
+        vim.api.nvim_buf_set_keymap(buf, 'n', tostring(index), '', {
+            callback = function() 
+                if buffer.id ~= -1 then
+                    vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
+                    M.windows.center_window.current_buffer_index = index
+                end
+            end,
+            noremap = true,
+            silent = true,
+        })
+
+        vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>r", '', {
+            callback = function() 
+                if buffer.id ~= -1 then
+                    on_remove_on_center_window()
+                end
+            end,
+            noremap = true,
+            silent = true,
+        })
+end
+----------------------------------------------------------------------------------------------------------------
 
 -- Set the lines in buffer
 vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
@@ -191,40 +228,7 @@ vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers_center
 
 
 
-local function on_remove_on_center_window()
-    local index = M.windows.center_window.current_buffer_index
-    local buffer_slot = M.windows.center_window.buffers[index]
-    local temp_buf = vim.api.nvim_create_buf(false,false)
-    local buf_to_delete = buffer_slot.id
-    vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
-    vim.api.nvim_buf_delete(buf_to_delete,{force = true})
-    M.windows.center_window.buffers[index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
 
-    local find = true
-    local cycle_repeat = index
-    while find do
-        index = index + 1
-        print("Searching " .. index)
-        if index > #M.windows.center_window.buffers then
-            print("First repeat")
-            index = 1
-        end
-        print("ON je tipa " .. M.windows.center_window.buffers[index].buf_type)
-        if M.windows.center_window.buffers[index].buf_type == BUF_TYPE_NO_FILE then
-            if cycle_repeat == index then
-                print("Cycle")
-                find = false
-            end
-        else
-                vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[index].id)
-                M.windows.center_window.current_buffer_index = index
-                find = false
-        end
-
-
-    end
-
-end
 
 -- -- Function to open references in a specific window
 -- local function open_references_in_window(target_winid)
