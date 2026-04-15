@@ -408,6 +408,10 @@ local function counter_resizing_of_windows(initial)
 
         config_right.width = M.windows.right_window.style.width
         config_right.height = M.windows.right_window.style.height
+
+        vim.api.nvim_win_set_config(M.windows.left_window.win_id, config_left)
+        vim.api.nvim_win_set_config(M.windows.center_window.win_id, config_center)
+        vim.api.nvim_win_set_config(M.windows.right_window.win_id, config_right)
     end
 
 end
