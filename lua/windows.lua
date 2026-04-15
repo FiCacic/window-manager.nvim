@@ -204,30 +204,30 @@ local function display_list_of_buffers_center()
             noremap = true,
             silent = true,
         })
+    end
 
-        vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>r", '', {
-            callback = function()
-                print("Removing " .. index)
-                if buffer.id ~= -1 then
-                    on_remove_on_center_window()
-                    vim.api.nvim_buf_set_option(buf, 'modifiable', true)
-                    vim.api.nvim_buf_set_lines(buf, 0, index, false, {string.format("%d: %s",index,'/')})
-                    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
-                end
-            end,
-            noremap = true,
-            silent = true,
-        })
-end
-----------------------------------------------------------------------------------------------------------------
+    vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>r", '', {
+        callback = function()
+            local index =  vim.api.nvim_win_get_cursor(0)
+            local buffer = M.windows.center_window.buffers[index]
+            print("Removing " .. index)
+            if buffer.id ~= -1 then
+                on_remove_on_center_window()
+                vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+                vim.api.nvim_buf_set_lines(buf, 0, index, false, {string.format("%d: %s",index,'/')})
+                vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+            end
+        end,
+        noremap = true,
+        silent = true,
+    })
 
 -- Set the lines in buffer
 vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 -- Make it read-only (cannot write)
 vim.api.nvim_buf_set_option(buf, 'modifiable', false)
-
-
 end
+----------------------------------------------------------------------------------------------------------------
 
 vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers_center,{})
 
