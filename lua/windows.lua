@@ -2,6 +2,8 @@
 local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
+local BUF_TYPE_NO_FILE=1
+local BUF_TYPE_FILE=2
 
 local function HELP_FUNCTION()
 
@@ -10,14 +12,13 @@ local function HELP_FUNCTION()
 end
 
 
-local function buffer_props(id,title,win_id)
-
-
+local function buffer_props(id,title,win_id,file_path,buf_type)
     return {
         id=id,
         title=title,
+        file_path=file_path,
         window=win_id,
-        active = false
+        buf_type=buf_type
     }
 end
 
@@ -98,7 +99,6 @@ end
 
 
 local function create_new_buffer_on_buffer_slot(slots,index)
-    print(index)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
     vim.api.nvim_win_set_buf(buffer_slot.win_id,new_buf)
@@ -112,8 +112,6 @@ local function create_new_buffer_on_buffer_slot(slots,index)
 end
 
 local function open_file_in_window_buffer(window,buffer,path)
-    print(".. " .. window .. "  " .. buffer)
-    print(path)
     vim.api.nvim_win_set_buf(window,buffer)
     vim.api.nvim_buf_call(buffer,function()vim.cmd('edit' .. path) end)
 end
@@ -129,7 +127,8 @@ end
 
 
 
-local function open_file_center_view(node_absolute_path,new_buff)
+local function open_file_center_view(node_absolute_path,new_buff,filename)
+    print(filename)
     if new_buff then
             if(#M.windows.center_window.buffers == M.windows.center_window.current_buffer_index )then
                 M.windows.center_window.current_buffer_index = 1
@@ -207,10 +206,13 @@ for index, item in ipairs(M.windows.center_window.buffers) do
     })
 end
 
+
 -- Set the lines in buffer
 vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 -- Make it read-only (cannot write)
 vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+
+
 end
 
 vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
@@ -329,7 +331,7 @@ local function init_window(width)
                         vim.api.nvim_buf_delete(buf_id,{force = true})
                         remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
                         local center_buf = vim.api.nvim_create_buf(false, false)
-                        M.windows.center_window.buffers[1] = buffer_props(center_buf,"main",center_win)
+                        M.windows.center_window.buffers[1] = buffer_props(center_buf,"default",center_win,nil,BUF_TYPE_NO_FILE)
 
                     end
                 end
