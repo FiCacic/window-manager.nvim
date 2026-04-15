@@ -181,8 +181,6 @@ local function display_list_of_buffers_center()
         row = 0,
         col = col,
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
-           -- Add this line to set a specific highlight group
-        winhighlight = 'Normal:MyFloatNormal,FloatBorder:MyFloatBorder',
     }
     
     -- Create the floating window
@@ -211,9 +209,7 @@ local function display_list_of_buffers_center()
         callback = function()
             local cursor =  vim.api.nvim_win_get_cursor(float_win)
             local index =cursor[1]
-            print(index)
             local buffer = M.windows.center_window.buffers[index]
-            print("Removing " .. index)
             if buffer.id ~= -1 then
                 on_remove_on_center_window()
                 vim.api.nvim_buf_set_option(buf, 'modifiable', true)
