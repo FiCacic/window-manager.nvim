@@ -182,10 +182,9 @@ local function display_list_of_buffers_center()
         col = col,
         style = 'minimal',
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
-           -- Add this line to set a specific highlight group
-        winhighlight = 'Normal:MyFloatNormal,FloatBorder:MyFloatBorder',
     }
-    
+    vim.api.nvim_set_hl(0, 'MarkdownH1', { bold = true, fg = '#ff5555' })
+    vim.api.nvim_buf_add_highlight(buf, -1, 'MarkdownH1',0,0,4)
     -- Create the floating window
     local float_win = vim.api.nvim_open_win(buf, true, float_opts)
     
