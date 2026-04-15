@@ -401,6 +401,16 @@ vim.api.nvim_create_autocmd("WinNew", {
 })
 
 
+-- Basic WinResized example
+vim.api.nvim_create_autocmd("WinResized", {
+    callback = function(args)
+        -- args.match contains the window ID that was resized
+        local resized_win = tonumber(args.match)
+        print("Window " .. resized_win .. " was resized!")
+    end
+})
+
+
 vim.api.nvim_create_autocmd("WinClosed", {
     callback = function()
         local close_win = vim.api.nvim_get_current_win()
