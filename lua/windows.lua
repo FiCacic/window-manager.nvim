@@ -401,7 +401,7 @@ vim.api.nvim_create_autocmd("WinNew", {
 })
 
 
-vim.api.nvim_create_autocmd("WinClose", {
+vim.api.nvim_create_autocmd("WinClosed", {
     callback = function()
         local close_win = vim.api.nvim_get_current_win()
 
