@@ -1,4 +1,11 @@
 
+local HIGHLIGHT_BLACK_TRANSPERENT_WINDOW_MANAGER = "BlackTransparentBGWindowManager"
+-- Define black transparent highlight group
+vim.api.nvim_set_hl(0, HIGHLIGHT_BLACK_TRANSPERENT_WINDOW_MANAGER, {
+    bg = '#000000cc',  -- Black with ~80% opacity (cc = 204/255)
+    fg = '#ffffff'      -- White text for contrast
+})
+
 local HEIGHT_ORIENTATION = 1
 local WIDTH_ORIENTATION = 0
 
@@ -186,7 +193,7 @@ local function display_list_of_buffers_center()
     
     -- Create the floating window
     local float_win = vim.api.nvim_open_win(buf, true, float_opts)
-    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:I')
+    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:BlackTransparentBGWindowManager')
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
     local lines = {}
