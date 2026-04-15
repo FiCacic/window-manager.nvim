@@ -67,17 +67,6 @@ end
     vim.api.nvim_create_user_command("HelpPrint",HELP_FUNCTION,{})
 
 
-local function remove_buffer_from_center(list, target_id)
-    for i, item in ipairs(list) do
-        if item.id == target_id then
-            table.remove(list, i)
-            print("Removed")
-            return true  -- Item found and removed
-        end
-    end
-    return false  -- Item not found
-end
-
 
 local function create_new_buffer_on_buffer_slot(slots,index,absolute_path,filename,type)
     local buffer_slot = slots[index]
@@ -107,14 +96,6 @@ local function init_file_explorer(left_window_id)
     })
 end
 
-local function display_file_index_buffer_in_center_view_virtual_text()
-    vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
-        virt_text = {{"📝 REMARK: This buffer is read-only", "WarningMsg"}},
-        virt_text_pos = "eol",  -- Position at end of line
-        virt_lines_above=true
-    })
-end
-
 
 local function open_file_center_view(node_absolute_path,new_buff,filename)
     if new_buff then
@@ -129,7 +110,6 @@ local function open_file_center_view(node_absolute_path,new_buff,filename)
      local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index,node_absolute_path,filename,BUF_TYPE_FILE)
     open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
     vim.api.nvim_set_current_win(M.windows.center_window.win_id)
-    display_file_index_buffer_in_center_view_virtual_text()
 end
 
 
@@ -210,6 +190,15 @@ end
 vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers_center,{})
 
 
+
+local function on_remove_on_center_window()
+    local buffer_slot = M.windows.center_window.buffers[M.windows.center_window.current_buffer_index]
+    local temp_buf = vim.api.nvim_create_buf(false,false)
+    local buf_to_delete = buffer_slot.id
+    vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
+    vim.api.nvim_buf_delete(buf_to_delete,{force = true})
+    M.windows.center_window.buffers[M.windows.center_window.current_buffer_index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
+end
 
 -- -- Function to open references in a specific window
 -- local function open_references_in_window(target_winid)
@@ -314,18 +303,7 @@ local function init_window(width)
 
 
                 if current_win == M.windows.center_window.win_id then
-                    local buf_id = vim.api.nvim_win_get_buf(current_win)
-                    if(buf_id ~= M.windows.center_window.buffers[1].id) then
-                        vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[1].id)
-                        vim.api.nvim_buf_delete(buf_id,{force = true})
-                        remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
-                    else
-                        vim.api.nvim_buf_delete(buf_id,{force = true})
-                        remove_buffer_from_center(M.windows.center_window.buffers,buf_id)
-                        local center_buf = vim.api.nvim_create_buf(false, false)
-                        M.windows.center_window.buffers[1] = buffer_props(center_buf,"default",center_win,nil,BUF_TYPE_NO_FILE)
-
-                    end
+                        on_remove_on_center_window()
                 end
                 return
         end
