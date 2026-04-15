@@ -177,8 +177,7 @@ local function display_list_of_buffers()
 
     -- Create buffer for float window
     local buf = vim.api.nvim_create_buf(false, true)
-    -- Make it read-only (cannot write)
-    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+
 
     local float_opts = {
         relative = 'win',  -- Can also use 'win' to be relative to target_win
