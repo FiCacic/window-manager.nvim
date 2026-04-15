@@ -111,6 +111,7 @@ local function display_file_index_buffer_in_center_view_virtual_text()
     vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
         virt_text = {{"📝 REMARK: This buffer is read-only", "WarningMsg"}},
         virt_text_pos = "eol",  -- Position at end of line
+        virt_lines_above=true
     })
 end
 
