@@ -484,7 +484,7 @@ vim.api.nvim_create_autocmd("WinClosed", {
             M.windows.left_window.win_id = left_win
             counter_resizing_of_windows(false)
             init_file_explorer(left_win)
-
+            M.navigator.current_parent_win = left_win
         end
         
     end
