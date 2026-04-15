@@ -198,7 +198,7 @@ local function display_list_of_buffers_center()
                 if buffer.id ~= -1 then
                     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
                     M.windows.center_window.current_buffer_index = index
-                    vim.api.nvim_buf_add_highlight(0, my_ns, 'Visual', index, 0, -1)
+                    
                 end
             end,
             noremap = true,
