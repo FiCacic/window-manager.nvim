@@ -284,13 +284,6 @@ end
 local function init_window(width)
     local left_window = vim.api.nvim_get_current_win()
 
-  -- Check current values
-local number_status = vim.api.nvim_win_get_option(left_window, 'number')
-local relativenumber_status = vim.api.nvim_win_get_option(left_window, 'relativenumber')
-
-print("Number is:", number_status)
-print("Relativenumber is:", relativenumber_status)
-
     local bottom_width = math.floor(vim.o.columns * 1)
     local bottom_height = math.floor(vim.o.lines * 0.2)
     local bottom_buf = vim.api.nvim_create_buf(false, false)
@@ -393,6 +386,13 @@ print("Relativenumber is:", relativenumber_status)
 
     --   end
     --     ,{})
+
+      -- Check current values
+local number_status = vim.api.nvim_win_get_option(left_window, 'number')
+local relativenumber_status = vim.api.nvim_win_get_option(left_window, 'relativenumber')
+
+print("Number is:", number_status)
+print("Relativenumber is:", relativenumber_status)
 
 end
 
