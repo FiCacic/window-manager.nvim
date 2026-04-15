@@ -184,7 +184,7 @@ for index, buffer in ipairs(M.windows.center_window.buffers) do
         callback = function() 
             if buffer.id ~= -1 then
                 vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
-                M.window.center_window.current_buffer_index = index
+                M.windows.center_window.current_buffer_index = index
             end
             
         end,
