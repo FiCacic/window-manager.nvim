@@ -206,7 +206,8 @@ local function display_list_of_buffers_center()
         })
 
         vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>r", '', {
-            callback = function() 
+            callback = function()
+                print("Removing " .. index)
                 if buffer.id ~= -1 then
                     on_remove_on_center_window()
                     vim.api.nvim_buf_set_option(buf, 'modifiable', true)
