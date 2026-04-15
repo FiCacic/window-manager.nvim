@@ -388,8 +388,8 @@ local function init_window(width)
     --     ,{})
 
       -- Check current values
-local number_status = vim.api.nvim_win_get_option(left_window, 'number')
-local relativenumber_status = vim.api.nvim_win_get_option(left_window, 'relativenumber')
+local number_status = vim.api.nvim_win_get_option(center_win, 'number')
+local relativenumber_status = vim.api.nvim_win_get_option(center_win, 'relativenumber')
 
 print("Number is:", number_status)
 print("Relativenumber is:", relativenumber_status)
