@@ -33,9 +33,9 @@ local function create_win_props()
     return {
         current_buffer_index = 1,
         buffers = {
-            buffer_props(-1,"/",-1,nil,BUF_TYPE_NO_FILE),
-            buffer_props(-1,"/",-1,nil,BUF_TYPE_NO_FILE),
-            buffer_props(-1,"/",-1,nil,BUF_TYPE_NO_FILE),
+            buffer_props(-1,"/",-1,"nil",BUF_TYPE_NO_FILE),
+            buffer_props(-1,"/",-1,"nil",BUF_TYPE_NO_FILE),
+            buffer_props(-1,"/",-1,"nil",BUF_TYPE_NO_FILE),
         },
         child_windows={},
         win_id = -1,
