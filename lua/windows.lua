@@ -195,6 +195,18 @@ local function display_list_of_buffers()
     -- Create the floating window
     local float_win = vim.api.nvim_open_win(buf, true, float_opts)
     
+    -- Clear buffer if it already has content
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+
+    -- Build lines
+local lines = {}
+for index, item in ipairs(M.windows.center_window.buffers) do
+    table.insert(lines, string.format("%d: %s", index, item.title))
+end
+
+-- Set the lines in buffer
+vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
     return float_win, buf
 end
 
