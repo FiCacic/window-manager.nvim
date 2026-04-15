@@ -429,6 +429,7 @@ vim.api.nvim_create_autocmd("WinResized", {
         local resized_win = tonumber(args.match)
         if M.windows.left_window.win_id == resized_win then
             local config = vim.api.nvim_win_get_config(resized_win)
+            print(config.width, M.windows.left_window.style.width)
             config.width = M.windows.left_window.style.width
             config.height = M.windows.left_window.style.height
             
