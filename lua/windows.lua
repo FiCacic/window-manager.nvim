@@ -184,7 +184,7 @@ local function display_list_of_buffers_center()
     }
     
     -- Create the floating window
-    vim.api.nvim_open_win(buf, true, float_opts)
+    local float_win = vim.api.nvim_open_win(buf, true, float_opts)
     
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
@@ -208,7 +208,7 @@ local function display_list_of_buffers_center()
 
     vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>r", '', {
         callback = function()
-            local index =  vim.api.nvim_win_get_cursor(0)
+            local index =  vim.api.nvim_win_get_cursor(float_win)
             local buffer = M.windows.center_window.buffers[index]
             print("Removing " .. index)
             if buffer.id ~= -1 then
