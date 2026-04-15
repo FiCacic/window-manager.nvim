@@ -383,7 +383,7 @@ local function window_listener_setup()
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         local new_win = vim.api.nvim_get_current_win()
-       
+        print("NEW window")
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
             return
