@@ -19,7 +19,6 @@ function M.setup(opts)
     wm.window_listener_setup()
     if M.config.layout.file_explorer == "left" then
         wm.init_file_explorer(wm.windows.left_window.win_id)
-        wm.init_file_explorer(wm.windows.left_window.win_id)
     end
 end
 
