@@ -427,78 +427,77 @@ end
 
 local function window_listener_setup()
 
-    vim.api.nvim_create_autocmd("WinEnter", {
-    callback = function()
-        local current_win = vim.api.nvim_get_current_win()
+--     vim.api.nvim_create_autocmd("WinEnter", {
+--     callback = function()
+--         local current_win = vim.api.nvim_get_current_win()
 
-       if current_win == M.windows.left_window.win_id 
-            or current_win == M.windows.center_window.win_id
-            or current_win == M.windows.right_window.win_id
-            or current_win == M.windows.bottom_window.win_id then
+--        if current_win == M.windows.left_window.win_id 
+--             or current_win == M.windows.center_window.win_id
+--             or current_win == M.windows.right_window.win_id
+--             or current_win == M.windows.bottom_window.win_id then
 
-                M.navigator.current_parent_win = current_win
-        end
-    end
-})
+--                 M.navigator.current_parent_win = current_win
+--         end
+--     end
+-- })
 
 
--- Listen for new windows
-vim.api.nvim_create_autocmd("WinNew", {
-    callback = function()
+-- -- Listen for new windows
+-- vim.api.nvim_create_autocmd("WinNew", {
+--     callback = function()
+--         local new_win = vim.api.nvim_get_current_win()
+
+--         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
+--             vim.api.nvim_win_close(new_win,true)
+--             return
+--         end
+--         M.windows.center_window.child_windows[new_win] = child_win_props()
+--     end
+-- })
+
+
+-- -- Basic WinResized example
+-- vim.api.nvim_create_autocmd("WinResized", {
+--     callback = function(args)
+--         if M.flags.resize_allowed == false then 
+--             counter_resizing_of_windows(false)
+--         end
+--     end
+-- })
+
+
+-- vim.api.nvim_create_autocmd("WinClosed", {
+--     callback = function()
+--         local close_win = vim.api.nvim_get_current_win()
+
+--         if close_win == M.windows.center_window.win_id then
+--             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
+--             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
+--                 split = "right",  -- Opens to the right
+--                 vertical = true,   -- Vertical split
+--                 border = 'rounded',
+--             })
+--             M.windows.center_window.win_id = center_win
+--             counter_resizing_of_windows(false)
+--             M.navigator.current_parent_win = center_win
         
-        local new_win = vim.api.nvim_get_current_win()
-
-        if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
-            vim.api.nvim_win_close(new_win,true)
-            return
-        end
-        M.windows.center_window.child_windows[new_win] = child_win_props()
-    end
-})
-
-
--- Basic WinResized example
-vim.api.nvim_create_autocmd("WinResized", {
-    callback = function(args)
-        if M.flags.resize_allowed == false then 
-            counter_resizing_of_windows(false)
-        end
-    end
-})
-
-
-vim.api.nvim_create_autocmd("WinClosed", {
-    callback = function()
-        local close_win = vim.api.nvim_get_current_win()
-
-        if close_win == M.windows.center_window.win_id then
-            vim.api.nvim_set_current_win(M.windows.left_window.win_id)
-            local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
-                split = "right",  -- Opens to the right
-                vertical = true,   -- Vertical split
-                border = 'rounded',
-            })
-            M.windows.center_window.win_id = center_win
-            counter_resizing_of_windows(false)
-            M.navigator.current_parent_win = center_win
+--         elseif close_win == M.windows.left_window.win_id then
+--             local buf = vim.api.nvim_win_get_buf(close_win)
+--             vim.api.nvim_buf_delete(buf, { force = true })
+--             vim.api.nvim_set_current_win(M.windows.center_window.win_id)
+--             local temp_buf = vim.api.nvim_create_buf(false,false)
+--             local left_win = vim.api.nvim_open_win(temp_buf, true, {
+--                 split = "left",  -- Opens to the right
+--                 vertical = true,   -- Vertical split
+--             })
+--             M.windows.left_window.win_id = left_win
+--             counter_resizing_of_windows(false)
+--             init_file_explorer(left_win)
+--             M.navigator.current_parent_win = left_win
+--         end
         
-        elseif close_win == M.windows.left_window.win_id then
-            local buf = vim.api.nvim_win_get_buf(close_win)
-            vim.api.nvim_buf_delete(buf, { force = true })
-            vim.api.nvim_set_current_win(M.windows.center_window.win_id)
-            local temp_buf = vim.api.nvim_create_buf(false,false)
-            local left_win = vim.api.nvim_open_win(temp_buf, true, {
-                split = "left",  -- Opens to the right
-                vertical = true,   -- Vertical split
-            })
-            M.windows.left_window.win_id = left_win
-            counter_resizing_of_windows(false)
-            init_file_explorer(left_win)
-            M.navigator.current_parent_win = left_win
-        end
-        
-    end
-})
+--     end
+-- })
 end
 
 
