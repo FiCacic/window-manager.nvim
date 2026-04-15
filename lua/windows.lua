@@ -98,15 +98,16 @@ local function remove_buffer_from_center(list, target_id)
 end
 
 
-local function create_new_buffer_on_buffer_slot(slots,index)
+local function create_new_buffer_on_buffer_slot(slots,index,absolute_path,filename,type)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
-    vim.api.nvim_win_set_buf(buffer_slot.win_id,new_buf)
+    local win_id = buffer_slot.win_id
+    vim.api.nvim_win_set_buf(win_id,new_buf)
 
     if(vim.api.nvim_buf_is_valid(buffer_slot.id))then
             vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
     end
-    buffer_slot.id = new_buf
+    buffer_slot.id = buffer_props(new_buf,filename,win_id,absolute_path,type)
     return new_buf
 
 end
@@ -128,7 +129,6 @@ end
 
 
 local function open_file_center_view(node_absolute_path,new_buff,filename)
-    print(filename)
     if new_buff then
             if(#M.windows.center_window.buffers == M.windows.center_window.current_buffer_index )then
                 M.windows.center_window.current_buffer_index = 1
@@ -137,7 +137,7 @@ local function open_file_center_view(node_absolute_path,new_buff,filename)
             end
             M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].win_id = M.windows.center_window.win_id
     end
-     local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index)
+     local new_buf = create_new_buffer_on_buffer_slot(M.windows.center_window.buffers,M.windows.center_window.current_buffer_index,node_absolute_path,filename,BUF_TYPE_FILE)
     open_file_in_window_buffer(M.windows.center_window.win_id,new_buf,node_absolute_path)
     vim.api.nvim_set_current_win(M.windows.center_window.win_id)
 end
@@ -168,12 +168,8 @@ local function display_list_of_buffers()
    -- Get the target window's position and size
     local win_config = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local win_width = win_config.width
-    local win_height = win_config.height
-        
     -- Calculate center position relative to target window
     local col = (math.floor(win_width / 2)-15)
-    local row =math.floor(win_height  / 2)
-
     -- Create buffer for float window
     local buf = vim.api.nvim_create_buf(false, true)
 
@@ -181,7 +177,7 @@ local function display_list_of_buffers()
     local float_opts = {
         relative = 'win',  -- Can also use 'win' to be relative to target_win
         width = 30,
-        height = #M.windows.center_window.buffers + 2,
+        height = #M.windows.center_window.buffers + 1,
         row = 0,
         col = col,
         style = 'minimal',
