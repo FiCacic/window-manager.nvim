@@ -302,7 +302,8 @@ local function init_window(width)
     local center_win = vim.api.nvim_open_win(center_buf, true, {
         split = "right",  -- Opens to the right
         vertical = true,   -- Vertical split
-        width = center_width
+        width = center_width,
+         border = 'rounded',
     })
 
     local right_width =math.floor( vim.o.columns * 0.2)
@@ -469,6 +470,7 @@ vim.api.nvim_create_autocmd("WinClosed", {
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
                 split = "right",  -- Opens to the right
                 vertical = true,   -- Vertical split
+                border = 'rounded',
             })
             M.windows.center_window.win_id = center_win
             counter_resizing_of_windows(false)
