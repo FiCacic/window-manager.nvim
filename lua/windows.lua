@@ -111,11 +111,10 @@ local function display_file_index_buffer_in_center_view_virtual_text()
 -- Add virtual text after a line
  -- Add header at top
     vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
-        virt_lines = {{
-            string.format("┌─ Buffer: %d │ File: %s ─────────────────────────────────┐",
-                1, 'test.hr'),
-            "Title"
-        }},
+    virt_lines = {{  -- Outer table (array of lines)
+    string.format("...", 1, 'test.hr'),  -- Inner table (line content)
+    "Title"  -- Highlight group for this line
+}},
         virt_lines_above = false,  -- Places it AT line 0 (top)
     })
 end
