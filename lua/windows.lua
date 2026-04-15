@@ -170,15 +170,10 @@ local function display_list_of_buffers()
     local win_config = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local win_width = win_config.width
     local win_height = win_config.height
-    
-    -- Get the target window's absolute position
-    local win_pos = vim.api.nvim_win_get_position(M.windows.center_window.win_id)
-    local win_row = win_pos[1]
-    local win_col = win_pos[2]
-    
+        
     -- Calculate center position relative to target window
-    local col = win_col + (math.floor(win_width / 2)-15)
-    local row = win_row + math.floor(win_height  / 2)
+    local col = (math.floor(win_width / 2)-15)
+    local row =math.floor(win_height  / 2)
 
     -- Create buffer for float window
     local buf = vim.api.nvim_create_buf(false, true)
