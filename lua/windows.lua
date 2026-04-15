@@ -488,8 +488,8 @@ vim.api.nvim_create_autocmd("WinClosed", {
                 vertical = true,   -- Vertical split
             })
             M.windows.center_window.win_id = center_win
-            counter_resizing_of_windows(false)
             center_window_split_new_window_resize_update()
+            counter_resizing_of_windows(false)
             M.navigator.current_parent_win = center_win
         
         elseif close_win == M.windows.left_window.win_id then
