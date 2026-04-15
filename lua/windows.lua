@@ -182,6 +182,8 @@ local function display_list_of_buffers_center()
         col = col,
         style = 'minimal',
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
+           -- Add this line to set a specific highlight group
+        winhighlight = 'Normal:MyFloatNormal,FloatBorder:MyFloatBorder',
     }
     
     -- Create the floating window
@@ -199,7 +201,6 @@ local function display_list_of_buffers_center()
                 if buffer.id ~= -1 then
                     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
                     M.windows.center_window.current_buffer_index = index
-                    
                 end
             end,
             noremap = true,
