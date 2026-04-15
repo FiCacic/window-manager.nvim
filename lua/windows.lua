@@ -51,6 +51,9 @@ end
 
 
 local  M = {
+    flags={
+        resize_allowed = false
+    },
     windows={
         left_window = create_win_props(),
         center_window = create_win_props(),
@@ -388,6 +391,27 @@ local function init_window(width)
 end
 
 
+local function counter_resizing_of_windows(initial)
+    local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
+    local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
+    local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
+
+
+    if initial then
+        
+    else
+        config_left.width = M.windows.left_window.style.width
+        config_left.height = M.windows.left_window.style.height
+
+        config_center.width = M.windows.center_window.style.width
+        config_center.height = M.windows.center_window.style.height
+
+        config_right.width = M.windows.right_window.style.width
+        config_right.height = M.windows.right_window.style.height
+    end
+
+end
+
 
 
 
@@ -425,16 +449,9 @@ vim.api.nvim_create_autocmd("WinNew", {
 -- Basic WinResized example
 vim.api.nvim_create_autocmd("WinResized", {
     callback = function(args)
-        -- args.match contains the window ID that was resized
-        local resized_win = tonumber(args.match)
-        if M.windows.left_window.win_id == resized_win then
-            local config = vim.api.nvim_win_get_config(resized_win)
-            config.width = M.windows.left_window.style.width
-            config.height = M.windows.left_window.style.height
-            vim.api.nvim_win_set_config(resized_win, config)
-            
+        if M.flags.resize_allowed == false then 
+            counter_resizing_of_windows(false)
         end
-        print("Window " .. resized_win .. " was resized!")
     end
 })
 
