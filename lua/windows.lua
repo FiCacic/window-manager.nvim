@@ -210,12 +210,13 @@ local function display_list_of_buffers_center()
         callback = function()
             local cursor =  vim.api.nvim_win_get_cursor(float_win)
             local index =cursor[1]
+            print(index)
             local buffer = M.windows.center_window.buffers[index]
             print("Removing " .. index)
             if buffer.id ~= -1 then
                 on_remove_on_center_window()
                 vim.api.nvim_buf_set_option(buf, 'modifiable', true)
-                vim.api.nvim_buf_set_lines(buf, index, index, false, {string.format("%d: %s",index,'/')})
+                vim.api.nvim_buf_set_lines(buf, index-1, index, false, {string.format("%d: %s",index,'/')})
                 vim.api.nvim_buf_set_option(buf, 'modifiable', false)
             end
         end,
