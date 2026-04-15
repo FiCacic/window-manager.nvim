@@ -17,7 +17,7 @@ local function buffer_props(id,title,win_id,file_path,buf_type)
         id=id,
         title=title,
         file_path=file_path,
-        window=win_id,
+        win_id=win_id,
         buf_type=buf_type
     }
 end
