@@ -83,7 +83,6 @@ end
 
 
 local function create_new_buffer_on_buffer_slot(slots,index,absolute_path,filename,type)
-    print("Changing on slot " .. index)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
     local win_id = buffer_slot.win_id
@@ -185,6 +184,7 @@ for index, buffer in ipairs(M.windows.center_window.buffers) do
         callback = function() 
             if buffer.id ~= -1 then
                 vim.api.nvim_win_set_buf(M.windows.center_window.win_id,buffer.id)
+                M.window.center_window.current_buffer_index = index
             end
             
         end,
