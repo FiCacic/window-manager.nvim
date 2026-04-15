@@ -305,7 +305,6 @@ local function init_window(width)
         split = "right",  -- Opens to the right
         vertical = true,   -- Vertical split
         width = center_width,
-        border = 'rounded',
     })
 
     local right_width =math.floor( vim.o.columns * 0.2)
@@ -442,6 +441,8 @@ local function window_listener_setup()
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
+          vim.opt_local.number = true
+        vim.opt_local.relativenumber = false
         local new_win = vim.api.nvim_get_current_win()
 
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
