@@ -108,7 +108,7 @@ local function init_file_explorer(left_window_id)
 end
 
 local function display_file_index_buffer_in_center_view_virtual_text()
-    api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
+    vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
         virt_lines = {{{"📝 REMARK: This buffer is read-only", "WarningMsg"}}},
         virt_lines_above = true,
     })
