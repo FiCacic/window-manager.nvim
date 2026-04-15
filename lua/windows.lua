@@ -182,7 +182,7 @@ local function display_list_of_buffers_center()
         height = #M.windows.center_window.buffers + 1,
         row = 0,
         col = col,
-        border = 'shadow',  -- 'none', 'single', 'double', 'rounded', 'solid'
+        border = 'single',  -- 'none', 'single', 'double', 'rounded', 'solid'
         style = 'minimal'
     }
     
