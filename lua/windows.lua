@@ -284,6 +284,9 @@ end
 local function init_window(width)
     local left_window = vim.api.nvim_get_current_win()
 
+    vim.api.nvim_win_set_option(left_window, 'number', false)
+    vim.api.nvim_win_set_option(left_window, 'relativenumber', false)
+
     local bottom_width = math.floor(vim.o.columns * 1)
     local bottom_height = math.floor(vim.o.lines * 0.2)
     local bottom_buf = vim.api.nvim_create_buf(false, false)
@@ -302,6 +305,7 @@ local function init_window(width)
         split = "right",  -- Opens to the right
         vertical = true,   -- Vertical split
         width = center_width,
+    
     })
 
     local right_width =math.floor( vim.o.columns * 0.2)
