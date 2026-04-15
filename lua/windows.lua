@@ -210,7 +210,8 @@ end
 
 -- Set the lines in buffer
 vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-    return float_win, buf
+-- Make it read-only (cannot write)
+vim.api.nvim_buf_set_option(buf, 'modifiable', false)
 end
 
 vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
