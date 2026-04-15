@@ -215,7 +215,7 @@ local function display_list_of_buffers_center()
             if buffer.id ~= -1 then
                 on_remove_on_center_window()
                 vim.api.nvim_buf_set_option(buf, 'modifiable', true)
-                vim.api.nvim_buf_set_lines(buf, 0, index, false, {string.format("%d: %s",index,'/')})
+                vim.api.nvim_buf_set_lines(buf, index, 0, false, {string.format("%d: %s",index,'/')})
                 vim.api.nvim_buf_set_option(buf, 'modifiable', false)
             end
         end,
