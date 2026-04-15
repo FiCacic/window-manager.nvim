@@ -110,6 +110,13 @@ local function init_file_explorer(left_window_id)
     })
 end
 
+local function display_file_index_buffer_in_center_view_virtual_text()
+-- Add virtual text after a line
+vim.api.nvim_buf_set_extmark(0, -1, 0, 0, {
+    virt_text = {{" ⚠️ WARNING: This function is deprecated", "WarningMsg"}},
+    virt_text_pos = "eol",  -- Display at end of line
+})
+end
 
 
 local function open_file_center_view(node_absolute_path,new_buff,filename)
