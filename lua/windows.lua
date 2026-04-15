@@ -138,6 +138,7 @@ local function on_remove_on_center_window()
     local temp_buf = vim.api.nvim_create_buf(false,false)
     local buf_to_delete = buffer_slot.id
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
+    print("Deleting buffer" .. buf_to_delete)
     vim.api.nvim_buf_delete(buf_to_delete,{force = true})
     M.windows.center_window.buffers[index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
 
