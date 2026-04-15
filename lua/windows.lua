@@ -2,7 +2,7 @@
 local HIGHLIGHT_BLACK_TRANSPERENT_WINDOW_MANAGER = "BlackTransparentBGWindowManager"
 -- Define black transparent highlight group
 vim.api.nvim_set_hl(0, HIGHLIGHT_BLACK_TRANSPERENT_WINDOW_MANAGER, {
-    bg = '#00000099',  -- Black with ~80% opacity (cc = 204/255)
+    bg = '#ffffff',  -- Black with ~80% opacity (cc = 204/255)
     fg = '#ffffff'      -- White text for contrast
 })
 
