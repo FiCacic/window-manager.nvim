@@ -83,6 +83,7 @@ end
 
 
 local function create_new_buffer_on_buffer_slot(slots,index,absolute_path,filename,type)
+    print("Changing on slot " .. index)
     local buffer_slot = slots[index]
     local new_buf = vim.api.nvim_create_buf(false,false)
     local win_id = buffer_slot.win_id
@@ -114,6 +115,7 @@ end
 
 local function open_file_center_view(node_absolute_path,new_buff,filename)
     if new_buff then
+        print(#M.windows.center_window.buffers .. "   " .. M.windows.center_window.current_buffer_index)
             if(#M.windows.center_window.buffers == M.windows.center_window.current_buffer_index )then
                 M.windows.center_window.current_buffer_index = 1
             else
