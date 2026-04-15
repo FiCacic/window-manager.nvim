@@ -111,7 +111,7 @@ local function display_file_index_buffer_in_center_view_virtual_text()
 -- Add virtual text after a line
 vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
     virt_text = {{" ⚠️ WARNING: This function is deprecated", "WarningMsg"}},
-    virt_text_pos = "eol",  -- Display at end of line
+virt_lines_above = true,  -- Places it ABOVE the line
 })
 end
 
