@@ -407,6 +407,7 @@ end
 
 
 local function counter_resizing_of_windows(initial)
+    print("RESIZING !")
     local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
