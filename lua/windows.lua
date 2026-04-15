@@ -202,15 +202,20 @@ local function display_list_of_buffers()
 local lines = {}
 for index, item in ipairs(M.windows.center_window.buffers) do
     table.insert(lines, string.format("%d: %s", index, item.title))
+    -- Create buffer-local keymap (buffer 0 = current buffer)
+    vim.api.nvim_buf_set_keymap(buf, 'n', tostring(index), '', {
+        callback = function() print(item.title) end,
+        noremap = true,
+        silent = true,
+    })
 end
 
 -- Set the lines in buffer
 vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-
     return float_win, buf
 end
 
-    vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
+vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers,{})
 
 
 
