@@ -284,7 +284,6 @@ end
 local function init_window(width)
     local left_window = vim.api.nvim_get_current_win()
 
-
     local bottom_width = math.floor(vim.o.columns * 1)
     local bottom_height = math.floor(vim.o.lines * 0.2)
     local bottom_buf = vim.api.nvim_create_buf(false, false)
