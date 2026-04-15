@@ -410,6 +410,7 @@ vim.api.nvim_create_autocmd("WinClosed", {
             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
 
             local center_width = math.floor(vim.o.columns * 0.85)
+            print(vim.inspec(M.windows.center_window.buffers))
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[0].id, true, {
                 split = "right",  -- Opens to the right
                 vertical = true,   -- Vertical split
