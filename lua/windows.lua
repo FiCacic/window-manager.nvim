@@ -181,11 +181,12 @@ local function display_list_of_buffers_center()
         row = 0,
         col = col,
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
+        style = 'minimal'
     }
     
     -- Create the floating window
     local float_win = vim.api.nvim_open_win(buf, true, float_opts)
-    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:MyFloatBackground')
+    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:I')
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
     local lines = {}
