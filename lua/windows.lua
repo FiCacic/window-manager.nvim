@@ -5,11 +5,8 @@ local WIDTH_ORIENTATION = 0
 local BUF_TYPE_NO_FILE=1
 local BUF_TYPE_FILE=2
 
-local function HELP_FUNCTION()
-
-
-
-end
+-- Create your own namespace
+local my_ns = vim.api.nvim_create_namespace("my_plugin_name")
 
 
 local function buffer_props(id,title,win_id,file_path,buf_type)
@@ -112,7 +109,7 @@ end
 
 local function display_file_index_buffer_in_center_view_virtual_text()
 -- Add virtual text after a line
-vim.api.nvim_buf_set_extmark(0, 0, 0, 0, {
+vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
     virt_text = {{" ⚠️ WARNING: This function is deprecated", "WarningMsg"}},
     virt_text_pos = "eol",  -- Display at end of line
 })
