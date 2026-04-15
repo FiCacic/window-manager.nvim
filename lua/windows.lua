@@ -466,15 +466,24 @@ vim.api.nvim_create_autocmd("WinClosed", {
 
         if close_win == M.windows.center_window.win_id then
             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
-
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
                 split = "right",  -- Opens to the right
                 vertical = true,   -- Vertical split
             })
-            
             M.windows.center_window.win_id = center_win
             counter_resizing_of_windows(false)
             M.navigator.current_parent_win = center_win
+        
+        elseif close_win == M.windows.left_window.win_id then
+              vim.api.nvim_set_current_win(M.windows.center_window.win_id)
+                local left_win = vim.api.nvim_open_win(M.windows.left_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
+                split = "right",  -- Opens to the right
+                vertical = true,   -- Vertical split
+            })
+            M.windows.left_window.win_id = left_win
+            counter_resizing_of_windows(false)
+            init_file_explorer(left_win)
+
         end
         
     end
