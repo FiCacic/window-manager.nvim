@@ -302,7 +302,7 @@ local function init_window(width)
         split = "right",  -- Opens to the right
         vertical = true,   -- Vertical split
         width = center_width,
-         border = 'rounded',
+         border = 'single'
     })
 
     local right_width =math.floor( vim.o.columns * 0.2)
