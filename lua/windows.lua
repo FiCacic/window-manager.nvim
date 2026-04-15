@@ -204,12 +204,15 @@ local function on_remove_on_center_window()
     local cycle_repeat = index
     while find do
         index = index + 1
+        print("Searching " .. index)
         if index >= #M.windows.center_window.buffers then
+            print("First repeat")
             index = 1
         end
 
         if M.windows.center_window.buffers[index].buf_type == BUF_TYPE_NO_FILE then
             if cycle_repeat == index then
+                print("Cycle")
                 find = false
             end
         else
