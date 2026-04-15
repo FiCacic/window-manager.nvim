@@ -176,7 +176,7 @@ local function display_list_of_buffers()
     local win_col = win_pos[2]
     
     -- Calculate center position relative to target window
-    local col = win_col + (math.floor(win_width / 2)-30)
+    local col = win_col + (math.floor(win_width / 2)-15)
     local row = win_row + math.floor(win_height  / 2)
 
     -- Create buffer for float window
