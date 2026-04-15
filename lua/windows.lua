@@ -323,11 +323,21 @@ local function init_window(width)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
 
     M.windows.center_window.buffers[1].id = center_buf
-    M.windows.center_window.buffers[1].title = "main"
+    M.windows.center_window.buffers[1].title = "/"
     M.windows.center_window.buffers[1].win_id = center_win
     M.windows.center_window.current_buffer_index = 1
 
+    local config_left = vim.api.nvim_win_get_config(left_window)
+    local config_center = vim.api.nvim_win_get_config(center_win)
+    local config_right = vim.api.nvim_win_get_config(right_win)
 
+
+    M.windows.left_window.style.width = config_left.width
+    M.windows.left_window.style.height = config_left.height 
+    
+    print(config_left.width)
+    print(config_left.height)
+    
         -- Override the q keymap (not the command)
         ---Add logic that buffers can be removed
     vim.keymap.set('n', '<leader>r', function()
@@ -406,6 +416,18 @@ vim.api.nvim_create_autocmd("WinResized", {
     callback = function(args)
         -- args.match contains the window ID that was resized
         local resized_win = tonumber(args.match)
+        if M.windows.left_window.win_id == resized_win then
+                vim.api.nvim_set_current_win(resized_win)
+              
+                local center_width = math.floor(vim.o.columns * 0.85)
+                local center_buf = vim.api.nvim_create_buf(false, false)
+                local center_win = vim.api.nvim_open_win(center_buf, true, {
+                    split = "right",  -- Opens to the right
+                    vertical = true,   -- Vertical split
+                    width = center_width
+                })
+            
+        end
         print("Window " .. resized_win .. " was resized!")
     end
 })
