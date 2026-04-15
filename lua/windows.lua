@@ -209,7 +209,7 @@ local function on_remove_on_center_window()
             print("First repeat")
             index = 1
         end
-
+        print("ON je tipa " .. M.windows.center_window.buffers[index].buf_type)
         if M.windows.center_window.buffers[index].buf_type == BUF_TYPE_NO_FILE then
             if cycle_repeat == index then
                 print("Cycle")
