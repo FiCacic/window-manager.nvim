@@ -186,8 +186,8 @@ local function display_list_of_buffers()
         relative = 'editor',  -- Can also use 'win' to be relative to target_win
         width = 30,
         height = 30,
-        row = row,
-        col = 0,
+        row = 0,
+        col = col,
         style = 'minimal',
         border = 'rounded',  -- 'none', 'single', 'double', 'rounded', 'solid'
     }
