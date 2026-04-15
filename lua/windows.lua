@@ -192,12 +192,35 @@ vim.api.nvim_create_user_command("DisplayBuffers",display_list_of_buffers_center
 
 
 local function on_remove_on_center_window()
-    local buffer_slot = M.windows.center_window.buffers[M.windows.center_window.current_buffer_index]
+    local index = M.windows.center_window.current_buffer_index
+    local buffer_slot = M.windows.center_window.buffers[index]
     local temp_buf = vim.api.nvim_create_buf(false,false)
     local buf_to_delete = buffer_slot.id
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
     vim.api.nvim_buf_delete(buf_to_delete,{force = true})
-    M.windows.center_window.buffers[M.windows.center_window.current_buffer_index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
+    M.windows.center_window.buffers[index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
+
+    local find = true
+    local cycle_repeat = index
+    while find do
+        index = index + 1
+        if index >= #M.windows.center_window.buffers then
+            index = 1
+        end
+
+        if M.windows.center_window.buffers[index].buf_type == BUF_TYPE_NO_FILE then
+            if cycle_repeat == index then
+                find = false
+            end
+        else
+                vim.api.nvim_win_set_buf(M.windows.center_window.win_id,M.windows.center_window.buffers[index].id)
+                M.windows.center_window.current_buffer_index = index
+                find = false
+        end
+
+
+    end
+
 end
 
 -- -- Function to open references in a specific window
