@@ -188,12 +188,11 @@ local function display_list_of_buffers_center()
     
     -- Create the floating window
     local float_win = vim.api.nvim_open_win(buf, true, float_opts)
-    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:FloatBackground,FloatBorder:Border')
+    vim.api.nvim_win_set_option(float_win, 'winhighlight', 'NormalFloat:FloatBackground,FloatBorder:FloatBorder')
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
 
     local lines = {}
     for index, buffer in ipairs(M.windows.center_window.buffers) do
-
         table.insert(lines, string.format("%d: %s", index, buffer.title))
 
         vim.api.nvim_buf_set_keymap(buf, 'n', tostring(index), '', {
@@ -368,6 +367,9 @@ local function init_window(width)
 end
 
 
+
+
+
 local function window_listener_setup()
 
     vim.api.nvim_create_autocmd("WinEnter", {
@@ -395,7 +397,30 @@ vim.api.nvim_create_autocmd("WinNew", {
             return
         end
         M.windows.center_window.child_windows[new_win] = child_win_props()
-        print("New window created! ID: " .. new_win)
+    end
+})
+
+
+vim.api.nvim_create_autocmd("WinClose", {
+    callback = function()
+        local close_win = vim.api.nvim_get_current_win()
+
+        if close_win == M.windows.center_window.win_id then
+            
+            vim.api.nvim_set_current_win(M.windows.left_window.win_id)
+
+            local center_width = math.floor(vim.o.columns * 0.85)
+            local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[0].id, true, {
+                split = "right",  -- Opens to the right
+                vertical = true,   -- Vertical split
+                width = center_width
+            })
+            
+            M.windows.center_window.win_id = center_win
+            vim.api.nvim_set_current_win(center_win)
+               M.navigator.current_parent_win = center_win
+        end
+        
     end
 })
 end
