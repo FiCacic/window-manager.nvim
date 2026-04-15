@@ -107,7 +107,7 @@ local function create_new_buffer_on_buffer_slot(slots,index,absolute_path,filena
     if(vim.api.nvim_buf_is_valid(buffer_slot.id))then
             vim.api.nvim_buf_delete(buffer_slot.id,{force=true})
     end
-    buffer_slot.id = buffer_props(new_buf,filename,win_id,absolute_path,type)
+    buffer_slot[index] = buffer_props(new_buf,filename,win_id,absolute_path,type)
     return new_buf
 
 end
