@@ -482,6 +482,7 @@ vim.api.nvim_create_autocmd("WinClosed", {
         local close_win = vim.api.nvim_get_current_win()
 
         if close_win == M.windows.center_window.win_id then
+            print("CLOOOSING")
             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
                 split = "right",  -- Opens to the right
