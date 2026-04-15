@@ -185,7 +185,7 @@ local function display_list_of_buffers()
     local float_opts = {
         relative = 'editor',  -- Can also use 'win' to be relative to target_win
         width = 30,
-        height = 30,
+        height = #M.windows.center_window.buffers + 2,
         row = 0,
         col = col,
         style = 'minimal',
