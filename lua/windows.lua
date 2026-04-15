@@ -112,7 +112,7 @@ local function display_file_index_buffer_in_center_view_virtual_text()
  -- Add header at top
     vim.api.nvim_buf_set_extmark(0, my_ns, 0, 0, {
         virt_lines = {{
-            string.format("┌─ Buffer: %d │ File: %s ─────────────────────────────────┐", 
+            string.format("┌─ Buffer: %d │ File: %s ─────────────────────────────────┐",
                 1, 'test.hr'),
             "Title"
         }},
