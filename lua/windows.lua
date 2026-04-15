@@ -205,7 +205,7 @@ local function on_remove_on_center_window()
     while find do
         index = index + 1
         print("Searching " .. index)
-        if index >= #M.windows.center_window.buffers then
+        if index > #M.windows.center_window.buffers then
             print("First repeat")
             index = 1
         end
