@@ -482,6 +482,7 @@ local function on_close_event_check_for_center_childs_windows(closing_win)
             return true
         end
     end
+    print("Returning false")
     return false
 end
 
