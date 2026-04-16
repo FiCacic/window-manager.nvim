@@ -57,7 +57,7 @@ local  M = {
     windows={
         left_window = create_win_props(),
         center_window = create_win_props(),
-        right_window=create_win_props(),
+        -- right_window=create_win_props(),
         bottom_window=create_win_props(),
         display_buffer_window = create_win_props
     },
@@ -313,15 +313,15 @@ local function init_window(width)
     })
 
     M.windows.left_window.win_id = left_window
-    M.windows.right_window.win_id = right_win
+    -- M.windows.right_window.win_id = right_win
     M.windows.center_window.win_id = center_win
     M.windows.bottom_window.win_id = bottom_win
 
     M.windows.bottom_window.style.max_height = bottom_height
     M.windows.bottom_window.style.height = bottom_height
 
-    M.windows.right_window.style.max_width = right_width
-    M.windows.right_window.style.width = right_width
+    -- M.windows.right_window.style.max_width = right_width
+    -- M.windows.right_window.style.width = right_width
 
     M.windows.left_window.style.max_width = vim.api.nvim_win_get_width(left_window)
     M.windows.left_window.style.width = vim.api.nvim_win_get_width(left_window)
@@ -341,10 +341,10 @@ local function init_window(width)
     M.windows.left_window.style.initial_width = config_left.width
     M.windows.left_window.style.initial_width = config_left.height 
 
-    M.windows.right_window.style.width = config_right.width
-    M.windows.right_window.style.height = config_right.height 
-    M.windows.right_window.style.initial_width = config_right.width
-    M.windows.right_window.style.initial_width = config_right.height 
+    -- M.windows.right_window.style.width = config_right.width
+    -- M.windows.right_window.style.height = config_right.height 
+    -- M.windows.right_window.style.initial_width = config_right.width
+    -- M.windows.right_window.style.initial_width = config_right.height 
 
     M.windows.center_window.style.width = config_center.width
     M.windows.center_window.style.height = config_center.height 
@@ -357,7 +357,7 @@ local function init_window(width)
         local current_win = vim.api.nvim_get_current_win()
           if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
-            or current_win == M.windows.right_window.win_id
+            -- or current_win == M.windows.right_window.win_id
             or current_win == M.windows.bottom_window.win_id then
 
 
@@ -408,7 +408,7 @@ end
 local function counter_resizing_of_windows(initial)
     local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
-    local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
+    -- local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
 
     if initial then
         
@@ -421,12 +421,12 @@ local function counter_resizing_of_windows(initial)
             config_center.width = M.windows.center_window.style.width
             config_center.height = M.windows.center_window.style.height
 
-            config_right.width = M.windows.right_window.style.width
-            config_right.height = M.windows.right_window.style.height
+            -- config_right.width = M.windows.right_window.style.width
+            -- config_right.height = M.windows.right_window.style.height
 
             vim.api.nvim_win_set_config(M.windows.center_window.win_id, config_center)
             vim.api.nvim_win_set_config(M.windows.left_window.win_id, config_left)
-            vim.api.nvim_win_set_config(M.windows.right_window.win_id, config_right)
+            -- vim.api.nvim_win_set_config(M.windows.right_window.win_id, config_right)
         end)
     end
 
@@ -506,7 +506,7 @@ local function copy_window_to_right_window(win_id)
                 print("Terminal window created")
             elseif vim.bo[source_buf].buftype == "quickfix" then
                 print("Quickfix window created")
-                vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
+                -- vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
             else
                 print("Normal window created")
             end
@@ -523,7 +523,7 @@ local function window_listener_setup()
 
        if current_win == M.windows.left_window.win_id 
             or current_win == M.windows.center_window.win_id
-            or current_win == M.windows.right_window.win_id
+            -- or current_win == M.windows.right_window.win_id
             or current_win == M.windows.bottom_window.win_id then
 
                 M.navigator.current_parent_win = current_win
