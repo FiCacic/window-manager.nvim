@@ -505,7 +505,7 @@ local function copy_window_to_right_window(win_id)
             if vim.bo[source_buf].buftype == "terminal" then
                 print("Terminal window created")
             elseif vim.bo[source_buf].buftype == "quickfix" then
-                print("Quickfix window created")
+                print("Quickfix window created Move right")
                 vim.cmd("wincmd l")
                 -- vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
             else
