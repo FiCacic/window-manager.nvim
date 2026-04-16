@@ -498,12 +498,12 @@ end
 
 
 
-local function copy_window_to_right_window(win_id)
-        local source_buf1 = vim.api.nvim_win_get_buf(win_id)
+local function position_window(win_id)
        -- Defer the check to allow buffer properties to be set
         vim.defer_fn(function()
             local source_buf = vim.api.nvim_win_get_buf(win_id)
             if vim.bo[source_buf].buftype == "terminal" then
+                vim.cmd("wincmd J")
                 print("Terminal window created")
             elseif vim.bo[source_buf].buftype == "quickfix" then
                 print("Quickfix window created Move right")
@@ -538,8 +538,6 @@ local function window_listener_setup()
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function(args)
-        print(vim.inspect(args))
-        print("New window" .. args.match)
         local new_win = vim.api.nvim_get_current_win()
         local win_type = vim.fn.win_gettype(new_win)
         print(new_win .. " " ..  win_type)
@@ -547,7 +545,7 @@ vim.api.nvim_create_autocmd("WinNew", {
             return
 
         elseif win_type == "" then
-            copy_window_to_right_window(new_win)
+            position_window(new_win)
         end
 
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
