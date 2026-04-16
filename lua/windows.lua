@@ -412,7 +412,7 @@ local function counter_resizing_of_windows(initial)
     local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
-
+    print(config_left.width,config_center.width,config_right.width)
 
     if initial then
         
@@ -449,7 +449,6 @@ local function on_close_event_check_for_center_window(win_id)
         })
         M.windows.center_window.win_id = center_win
         M.navigator.current_parent_win = center_win
-        counter_resizing_of_windows(false)
         counter_resizing_of_windows(false)
         return true
     end
