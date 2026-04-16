@@ -482,6 +482,7 @@ local function on_close_event_check_for_center_childs_windows(closing_win)
 end
 
 local function on_close_event_check_for_center_window(closing_win)
+    print(closing_win  .. " " )
     if closing_win == M.windows.center_window.win_id then
 		if on_close_event_check_for_center_window_main_window_closing(closing_win)then
             counter_resizing_of_windows(false)
