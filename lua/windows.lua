@@ -351,6 +351,8 @@ local function init_window(width)
     M.windows.center_window.style.initial_width = config_center.width
     M.windows.center_window.style.initial_width = config_center.height 
 
+     print(config_left.width,config_center.width,config_right.width)
+
         -- Override the q keymap (not the command)
         ---Add logic that buffers can be removed
     vim.keymap.set('n', '<leader>r', function()
@@ -424,6 +426,8 @@ local function counter_resizing_of_windows(initial)
         config_right.width = M.windows.right_window.style.width
         config_right.height = M.windows.right_window.style.height
 
+        print(config_left.width,config_center.width,config_right.width)
+
         vim.api.nvim_win_set_config(M.windows.left_window.win_id, config_left)
         vim.api.nvim_win_set_config(M.windows.center_window.win_id, config_center)
         vim.api.nvim_win_set_config(M.windows.right_window.win_id, config_right)
@@ -445,6 +449,7 @@ local function on_close_event_check_for_center_window(win_id)
             center_window_split_new_window_resize_update()
             counter_resizing_of_windows(false)
             M.navigator.current_parent_win = center_win
+            return true
     end
 end
 
