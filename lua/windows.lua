@@ -499,9 +499,10 @@ end
 
 local function copy_window_to_right_window(win_id)
         print("GETTING BUFFER FROM " .. win_id)
-        local source_buf = vim.api.nvim_win_get_buf(win_id)
+        local source_buf1 = vim.api.nvim_win_get_buf(win_id)
        -- Defer the check to allow buffer properties to be set
         vim.defer_fn(function()
+            local source_buf = vim.api.nvim_win_get_buf(win_id)
             if vim.bo[source_buf].buftype == "terminal" then
                 print("Terminal window created")
             elseif vim.bo[source_buf].buftype == "quickfix" then
@@ -510,7 +511,7 @@ local function copy_window_to_right_window(win_id)
                 print("Normal window created")
             end
         end, 50)  -- Small delay of 50ms
-        vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
+        vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf1)
 
 
 end
