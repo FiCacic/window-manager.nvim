@@ -540,7 +540,7 @@ vim.api.nvim_create_autocmd("WinNew", {
     callback = function(args)
         local new_win = vim.api.nvim_get_current_win()
         local win_type = vim.fn.win_gettype(new_win)
-        print(new_win .. " " ..  win_type)
+        print(new_win .. " HERE " ..  win_type)
         if win_type == "popup" then
             return
 
