@@ -465,6 +465,12 @@ local function on_close_event_check_for_center_window(closing_win)
             M.windows.center_window.win_id = center_win
             M.navigator.current_parent_win = center_win
 
+            for i, buffer in ipairs(M.windows.center_window.buffers) do
+                if buffer.win_id == closing_win then
+                    buffer.win_id = center_win
+                end
+            end
+
         end
         counter_resizing_of_windows(false)
         return true
