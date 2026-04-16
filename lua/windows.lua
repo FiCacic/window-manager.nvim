@@ -450,6 +450,7 @@ local function on_close_event_check_for_center_window(win_id)
         M.windows.center_window.win_id = center_win
         M.navigator.current_parent_win = center_win
         counter_resizing_of_windows(false)
+        counter_resizing_of_windows(false)
         return true
     end
 end
