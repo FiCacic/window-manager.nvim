@@ -496,6 +496,18 @@ end
 
 
 
+
+local function copy_window_to_right_window(win_id)
+        local source_buf = vim.api.nvim_win_get_buf(new_win)
+
+
+        vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
+
+
+end
+
+
+
 local function window_listener_setup()
 
     vim.api.nvim_create_autocmd("WinEnter", {
@@ -513,6 +525,7 @@ local function window_listener_setup()
 })
 
 
+
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
@@ -522,6 +535,9 @@ vim.api.nvim_create_autocmd("WinNew", {
         print(new_win .. " " ..  win_type)
         if win_type == "popup" then
             return
+
+        elseif win_type == "" then
+            copy_window_to_right_window(new_win)
         end
 
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
