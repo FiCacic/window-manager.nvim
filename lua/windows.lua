@@ -523,11 +523,13 @@ local function window_listener_setup()
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
-        print("New window")
         local new_win = vim.api.nvim_get_current_win()
-            -- Method 1: Using win_gettype() (simplest)
         local win_type = vim.fn.win_gettype(winid)
-        print(win_type)
+        
+        if win_type == "popup" then
+            return
+        end
+
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
             return
