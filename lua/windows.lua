@@ -439,8 +439,8 @@ end
 
 
 
-local function on_close_event_check_for_center_window(win_id)
-    if win_id == M.windows.center_window.win_id then
+local function on_close_event_check_for_center_window(closing_win)
+    if closing_win == M.windows.center_window.win_id then
 		
         if next(M.windows.center_window.child_windows,nil) then
             -- Get first key-value pair
@@ -449,6 +449,13 @@ local function on_close_event_check_for_center_window(win_id)
             M.windows.center_window.win_id = win_id
             M.navigator.current_parent_win = win_id
             M.windows.center_window.child_windows[win_id] = nil
+            
+            for i, buffer in ipairs(M.windows.center_window.buffers) do
+                if buffer.win_id == closing_win then
+                    buffer.win_id = win_id
+                end
+            end
+
         else
             vim.api.nvim_set_current_win(M.windows.left_window.win_id)
             local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
