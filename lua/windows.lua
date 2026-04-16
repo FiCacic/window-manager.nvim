@@ -304,13 +304,13 @@ local function init_window(width)
         width = center_width,
     })
 
-    local right_width =math.floor( vim.o.columns * 0.2)
-    local right_buf = vim.api.nvim_create_buf(false, false)
-    local right_win = vim.api.nvim_open_win(right_buf, true, {
-        split = "right",  -- Opens to the right
-        vertical = true,   -- Vertical split
-        width = right_width
-    })
+    -- local right_width =math.floor( vim.o.columns * 0.2)
+    -- local right_buf = vim.api.nvim_create_buf(false, false)
+    -- local right_win = vim.api.nvim_open_win(right_buf, true, {
+    --     split = "right",  -- Opens to the right
+    --     vertical = true,   -- Vertical split
+    --     width = right_width
+    -- })
 
     M.windows.left_window.win_id = left_window
     -- M.windows.right_window.win_id = right_win
@@ -333,7 +333,7 @@ local function init_window(width)
 
     local config_left = vim.api.nvim_win_get_config(left_window)
     local config_center = vim.api.nvim_win_get_config(center_win)
-    local config_right = vim.api.nvim_win_get_config(right_win)
+    -- local config_right = vim.api.nvim_win_get_config(right_win)
 
 
     M.windows.left_window.style.width = config_left.width
