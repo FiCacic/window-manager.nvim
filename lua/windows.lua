@@ -420,7 +420,7 @@ local function counter_resizing_of_windows(initial)
         config_left.width = M.windows.left_window.style.width
         config_left.height = M.windows.left_window.style.height
 
-        config_center.width = M.windows.center_window.style.width+10
+        config_center.width = M.windows.center_window.style.width+100
         config_center.height = M.windows.center_window.style.height
 
         config_right.width = M.windows.right_window.style.width
