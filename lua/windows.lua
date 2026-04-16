@@ -443,6 +443,7 @@ local function on_close_event_check_for_center_window(win_id)
 		
         if #M.windows.center_window.child_windows > 0 then
             -- Get first key-value pair
+            print("VALUE IS GREATER")
             local win_id, value = next(M.windows.center_window.child_windows)
             M.windows.center_window.win_id = win_id
             M.navigator.current_parent_win = win_id
