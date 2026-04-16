@@ -516,6 +516,7 @@ local function window_listener_setup()
 -- Listen for new windows
 vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
+        print("New window")
         local new_win = vim.api.nvim_get_current_win()
         local win_type = vim.fn.win_gettype(winid)
         print(new_win .. " " ..  win_type)
