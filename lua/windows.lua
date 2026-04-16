@@ -412,14 +412,12 @@ local function counter_resizing_of_windows(initial)
     local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
-    print(config_left.width,config_center.width,config_right.width)
 
     if initial then
         
     else
         vim.schedule(function()
             print("Runs after current call stack finishes")
-            print("HERE")
             config_left.width = M.windows.left_window.style.width
             config_left.height = M.windows.left_window.style.height
 
@@ -428,8 +426,6 @@ local function counter_resizing_of_windows(initial)
 
             config_right.width = M.windows.right_window.style.width
             config_right.height = M.windows.right_window.style.height
-
-            print(config_left.width,config_center.width,config_right.width)
 
             vim.api.nvim_win_set_config(M.windows.center_window.win_id, config_center)
             vim.api.nvim_win_set_config(M.windows.left_window.win_id, config_left)
