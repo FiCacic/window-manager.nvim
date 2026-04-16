@@ -58,7 +58,8 @@ local  M = {
         left_window = create_win_props(),
         center_window = create_win_props(),
         right_window=create_win_props(),
-        bottom_window=create_win_props()
+        bottom_window=create_win_props(),
+        display_buffer_window = create_win_props
     },
     navigator={
         current_parent_win = -1
@@ -229,10 +230,10 @@ local function display_list_of_buffers_center()
         silent = true,
     })
 
--- Set the lines in buffer
-vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
--- Make it read-only (cannot write)
-vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+    -- Set the lines in buffer
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    -- Make it read-only (cannot write)
+    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
 end
 ----------------------------------------------------------------------------------------------------------------
 
@@ -525,7 +526,7 @@ vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         print("New window")
         local new_win = vim.api.nvim_get_current_win()
-
+        print(new_win)
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
             return
