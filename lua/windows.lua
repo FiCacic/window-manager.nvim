@@ -439,8 +439,7 @@ end
 
 local function on_close_event_check_for_center_window(win_id)
     if win_id == M.windows.center_window.win_id then
-		print("Hello my dear friend")
-        local config_center = vim.api.nvim_win_get_config(win_id)
+		print("Hello my dear friend")        
         vim.api.nvim_set_current_win(M.windows.left_window.win_id)
         local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
             split = "right",  -- Opens to the right
@@ -448,7 +447,7 @@ local function on_close_event_check_for_center_window(win_id)
         })
         M.windows.center_window.win_id = center_win
         M.navigator.current_parent_win = center_win
-        vim.api.nvim_win_set_config(M.windows.center_window.win_id, config_center)
+        counter_resizing_of_windows(false)
         return true
     end
 end
