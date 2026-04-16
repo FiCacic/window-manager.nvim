@@ -442,7 +442,7 @@ local function on_close_event_check_for_center_window(win_id)
 		print("Hello my dear friend")        
         vim.api.nvim_set_current_win(M.windows.left_window.win_id)
         local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
-            split = "right",  -- Opens to the right
+            split = "left",  -- Opens to the right
             vertical = true,   -- Vertical split
         })
         M.windows.center_window.win_id = center_win
