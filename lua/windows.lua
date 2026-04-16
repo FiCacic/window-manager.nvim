@@ -489,6 +489,7 @@ local function on_close_event_check_for_center_window(closing_win)
     else
         on_close_event_check_for_center_childs_windows(closing_win)
     end
+    print("MAin window is calling it")
     counter_resizing_of_windows(false)
 return true
 end
@@ -554,6 +555,7 @@ vim.api.nvim_create_autocmd("WinClosed", {
                 vertical = true,   -- Vertical split
             })
             M.windows.left_window.win_id = left_win
+            print("LEFT window is calling it")
             counter_resizing_of_windows(false)
             init_file_explorer(left_win)
             M.navigator.current_parent_win = left_win
