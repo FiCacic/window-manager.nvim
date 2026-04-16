@@ -417,6 +417,7 @@ local function counter_resizing_of_windows(initial)
     if initial then
         
     else
+        print("HERE")
         config_left.width = M.windows.left_window.style.width
         config_left.height = M.windows.left_window.style.height
 
