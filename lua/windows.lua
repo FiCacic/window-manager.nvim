@@ -570,7 +570,8 @@ vim.api.nvim_create_autocmd("WinResized", {
 
 
 vim.api.nvim_create_autocmd("WinClosed", {
-    callback = function()
+    callback = function(args)
+        print(vim.inspect(args))
         local close_win = vim.api.nvim_get_current_win()
 
         if on_close_event_check_for_center_window(close_win)then
