@@ -446,8 +446,7 @@ local function on_close_event_check_for_center_window(win_id)
                 vertical = true,   -- Vertical split
             })
             M.windows.center_window.win_id = center_win
-            center_window_split_new_window_resize_update()
-            counter_resizing_of_windows(false)
+          
             M.navigator.current_parent_win = center_win
             return true
     end
