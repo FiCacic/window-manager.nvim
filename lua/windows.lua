@@ -477,6 +477,7 @@ end
 
 local function on_close_event_check_for_center_childs_windows(closing_win)
     for win_id in pairs(M.windows.center_window.child_windows) do
+        print("Checking " .. win_id)
         if closing_win == win_id then
             M.windows.center_window.child_windows[closing_win] = nil
             return true
