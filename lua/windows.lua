@@ -486,11 +486,11 @@ end
 local function on_close_event_check_for_center_window(closing_win)
     if closing_win == M.windows.center_window.win_id then
 		on_close_event_check_for_center_window_main_window_closing(closing_win)
+        counter_resizing_of_windows(false)
     else
         on_close_event_check_for_center_childs_windows(closing_win)
+         counter_resizing_of_windows(false)
     end
-    print("MAin window is calling it")
-    counter_resizing_of_windows(false)
 return true
 end
 
