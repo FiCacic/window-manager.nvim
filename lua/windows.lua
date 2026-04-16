@@ -410,7 +410,6 @@ end
 
 
 local function counter_resizing_of_windows(initial)
-    print("RESIZING !")
     local config_left = vim.api.nvim_win_get_config(M.windows.left_window.win_id)
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
     local config_right = vim.api.nvim_win_get_config(M.windows.right_window.win_id)
@@ -526,7 +525,9 @@ vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         print("New window")
         local new_win = vim.api.nvim_get_current_win()
-        print(new_win)
+            -- Method 1: Using win_gettype() (simplest)
+        local win_type = vim.fn.win_gettype(winid)
+        print(win_type)
         if(M.navigator.current_parent_win ~= M.windows.center_window.win_id)then
             vim.api.nvim_win_close(new_win,true)
             return
@@ -563,7 +564,6 @@ vim.api.nvim_create_autocmd("WinClosed", {
                 vertical = true,   -- Vertical split
             })
             M.windows.left_window.win_id = left_win
-            print("LEFT window is calling it")
             counter_resizing_of_windows(false)
             init_file_explorer(left_win)
             M.navigator.current_parent_win = left_win
