@@ -441,7 +441,7 @@ end
 local function on_close_event_check_for_center_window(win_id)
     if win_id == M.windows.center_window.win_id then
 		
-        if next(M.windows.center_window.child_windows,nil) > 0 then
+        if next(M.windows.center_window.child_windows,nil) then
             -- Get first key-value pair
             print("VALUE IS GREATER")
             local win_id, value = next(M.windows.center_window.child_windows)
