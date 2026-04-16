@@ -439,12 +439,11 @@ end
 
 
 
-local function on_close_event_check_for_center_window(closing_win)
-    if closing_win == M.windows.center_window.win_id then
-		
-        if next(M.windows.center_window.child_windows,nil) then
-            -- Get first key-value pair
-            print("VALUE IS GREATER")
+
+
+
+local function on_close_event_check_for_center_window_main_window_closing(closing_win)
+    if next(M.windows.center_window.child_windows,nil) then
             local win_id, value = next(M.windows.center_window.child_windows)
             M.windows.center_window.win_id = win_id
             M.navigator.current_parent_win = win_id
@@ -472,9 +471,26 @@ local function on_close_event_check_for_center_window(closing_win)
             end
 
         end
-        counter_resizing_of_windows(false)
-        return true
+    return true
+end
+
+
+local function on_close_event_check_for_center_childs_windows(closing_win)
+    for win_id in pairs(M.windows.center_window.child_windows) do
+        if closing_win == win_id then
+            M.windows.center_window.child_windows[closing_win] = nil
+        end
     end
+end
+
+local function on_close_event_check_for_center_window(closing_win)
+    if closing_win == M.windows.center_window.win_id then
+		on_close_event_check_for_center_window_main_window_closing(closing_win)
+    else
+        on_close_event_check_for_center_childs_windows(closing_win)
+    end
+    counter_resizing_of_windows(false)
+return true
 end
 
 
