@@ -435,7 +435,7 @@ local function counter_resizing_of_windows(initial)
     end
 
 end
-  vim.api.nvim_create_user_command("RSize",counter_resizing_of_windows,{})
+  vim.api.nvim_create_user_command("RSize",function()counter_resizing_of_windows(false)end,{})
 
 
 
