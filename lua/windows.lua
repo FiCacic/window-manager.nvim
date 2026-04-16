@@ -479,17 +479,21 @@ local function on_close_event_check_for_center_childs_windows(closing_win)
     for win_id in pairs(M.windows.center_window.child_windows) do
         if closing_win == win_id then
             M.windows.center_window.child_windows[closing_win] = nil
+            return true
         end
     end
+    return false
 end
 
 local function on_close_event_check_for_center_window(closing_win)
     if closing_win == M.windows.center_window.win_id then
-		on_close_event_check_for_center_window_main_window_closing(closing_win)
-        counter_resizing_of_windows(false)
+		if on_close_event_check_for_center_window_main_window_closing(closing_win)then
+            counter_resizing_of_windows(false)
+        end
     else
-        on_close_event_check_for_center_childs_windows(closing_win)
-         counter_resizing_of_windows(false)
+        if on_close_event_check_for_center_childs_windows(closing_win) then
+             counter_resizing_of_windows(false)
+        end
     end
 return true
 end
