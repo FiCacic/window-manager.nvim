@@ -498,9 +498,7 @@ end
 
 
 local function copy_window_to_right_window(win_id)
-        local source_buf = vim.api.nvim_win_get_buf(new_win)
-
-
+        local source_buf = vim.api.nvim_win_get_buf(win_id)
         vim.api.nvim_win_set_buf(M.windows.right_window.win_id,source_buf)
 
 
@@ -531,7 +529,7 @@ vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         print("New window")
         local new_win = vim.api.nvim_get_current_win()
-        local win_type = vim.fn.win_gettype(winid)
+        local win_type = vim.fn.win_gettype(new_win)
         print(new_win .. " " ..  win_type)
         if win_type == "popup" then
             return
