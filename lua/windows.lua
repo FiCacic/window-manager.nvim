@@ -397,7 +397,6 @@ print("Relativenumber is:", relativenumber_status)
 end
 
 
-
 local function center_window_split_new_window_resize_update()
     local config_center = vim.api.nvim_win_get_config(M.windows.center_window.win_id)
         config_center.width = M.windows.center_window.style.width
@@ -432,6 +431,22 @@ local function counter_resizing_of_windows(initial)
 
 end
 
+
+
+local function on_close_event_check_for_center_window(win_id)
+    if win_id == M.windows.center_window.win_id then
+		print("Hello my dear friend")
+          vim.api.nvim_set_current_win(M.windows.left_window.win_id)
+            local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
+                split = "right",  -- Opens to the right
+                vertical = true,   -- Vertical split
+            })
+            M.windows.center_window.win_id = center_win
+            center_window_split_new_window_resize_update()
+            counter_resizing_of_windows(false)
+            M.navigator.current_parent_win = center_win
+    end
+end
 
 
 
@@ -481,17 +496,8 @@ vim.api.nvim_create_autocmd("WinClosed", {
     callback = function()
         local close_win = vim.api.nvim_get_current_win()
 
-        if close_win == M.windows.center_window.win_id then
-            vim.api.nvim_set_current_win(M.windows.left_window.win_id)
-            local center_win = vim.api.nvim_open_win(M.windows.center_window.buffers[M.windows.center_window.current_buffer_index].id, true, {
-                split = "right",  -- Opens to the right
-                vertical = true,   -- Vertical split
-            })
-            M.windows.center_window.win_id = center_win
-            center_window_split_new_window_resize_update()
-            counter_resizing_of_windows(false)
-            M.navigator.current_parent_win = center_win
-        
+        if on_close_event_check_for_center_window(close_win)then
+            return
         elseif close_win == M.windows.left_window.win_id then
             local buf = vim.api.nvim_win_get_buf(close_win)
             vim.api.nvim_buf_delete(buf, { force = true })
