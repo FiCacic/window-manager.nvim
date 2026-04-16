@@ -107,7 +107,6 @@ end
 
 local function open_file_center_view(node_absolute_path,new_buff,filename)
     if new_buff then
-        print(#M.windows.center_window.buffers .. "   " .. M.windows.center_window.current_buffer_index)
             if(#M.windows.center_window.buffers == M.windows.center_window.current_buffer_index )then
                 M.windows.center_window.current_buffer_index = 1
             else
@@ -147,7 +146,6 @@ local function on_remove_on_center_window()
     local temp_buf = vim.api.nvim_create_buf(false,false)
     local buf_to_delete = buffer_slot.id
     vim.api.nvim_win_set_buf(M.windows.center_window.win_id,temp_buf)
-    print("Deleting buffer" .. buf_to_delete)
     vim.api.nvim_buf_delete(buf_to_delete,{force = true})
     M.windows.center_window.buffers[index] = buffer_props(temp_buf,"/",M.windows.center_window.win_id,"nil",BUF_TYPE_NO_FILE)
 
@@ -353,8 +351,6 @@ local function init_window(width)
     M.windows.center_window.style.initial_width = config_center.width
     M.windows.center_window.style.initial_width = config_center.height 
 
-     print(config_left.width,config_center.width,config_right.width)
-
         -- Override the q keymap (not the command)
         ---Add logic that buffers can be removed
     vim.keymap.set('n', '<leader>r', function()
@@ -477,13 +473,11 @@ end
 
 local function on_close_event_check_for_center_childs_windows(closing_win)
     for win_id in pairs(M.windows.center_window.child_windows) do
-        print("Checking " .. win_id)
         if closing_win == win_id then
             M.windows.center_window.child_windows[closing_win] = nil
             return true
         end
     end
-    print("Returning false")
     return false
 end
 
@@ -494,7 +488,6 @@ local function on_close_event_check_for_center_window(closing_win)
         end
     else
         if on_close_event_check_for_center_childs_windows(closing_win) then
-            print("CLooosiing " .. closing_win)
              counter_resizing_of_windows(false)
         end
     end
@@ -525,7 +518,7 @@ vim.api.nvim_create_autocmd("WinNew", {
     callback = function()
         local new_win = vim.api.nvim_get_current_win()
         local win_type = vim.fn.win_gettype(winid)
-        
+        print(new_win .. " " ..  win_type)
         if win_type == "popup" then
             return
         end
@@ -570,7 +563,6 @@ vim.api.nvim_create_autocmd("WinClosed", {
             init_file_explorer(left_win)
             M.navigator.current_parent_win = left_win
         end
-        
     end
 })
 end
